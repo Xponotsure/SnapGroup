@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A93DAAD2C22C7B500EA0D63 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */; };
+		0A93DAB02C22C80B00EA0D63 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */; };
+		0A93DAB22C22C82600EA0D63 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */; };
+		0A93DAB42C22C83900EA0D63 /* CameraView+Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAB32C22C83800EA0D63 /* CameraView+Buttons.swift */; };
+		0A93DAB62C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAB52C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift */; };
+		0A93DAB82C22C85800EA0D63 /* CameraView+VerticalControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAB72C22C85800EA0D63 /* CameraView+VerticalControlBar.swift */; };
+		0A93DABB2C22C8A800EA0D63 /* ControlButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */; };
+		0A93DABD2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */; };
+		0A93DABF2C22C92500EA0D63 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DABE2C22C92500EA0D63 /* View+.swift */; };
 		D93C264B2C22BBC700A15FEF /* SnapGroupApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */; };
 		D93C264D2C22BBC700A15FEF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C264C2C22BBC700A15FEF /* ContentView.swift */; };
 		D93C264F2C22BBC800A15FEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C264E2C22BBC800A15FEF /* Assets.xcassets */; };
@@ -43,6 +52,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		0A93DAB32C22C83800EA0D63 /* CameraView+Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraView+Buttons.swift"; sourceTree = "<group>"; };
+		0A93DAB52C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraView+HorizontalControlBar.swift"; sourceTree = "<group>"; };
+		0A93DAB72C22C85800EA0D63 /* CameraView+VerticalControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraView+VerticalControlBar.swift"; sourceTree = "<group>"; };
+		0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtonView.swift; sourceTree = "<group>"; };
+		0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDeviceOrientation+.swift"; sourceTree = "<group>"; };
+		0A93DABE2C22C92500EA0D63 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		D93C26472C22BBC700A15FEF /* SnapGroup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapGroup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapGroupApp.swift; sourceTree = "<group>"; };
 		D93C264C2C22BBC700A15FEF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,6 +91,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A93DAAA2C22C75C00EA0D63 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DAAB2C22C7A500EA0D63 /* View Models */,
+				0A93DAAE2C22C7E100EA0D63 /* Views */,
+				0A93DAB92C22C86800EA0D63 /* Extensions */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		0A93DAAB2C22C7A500EA0D63 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		0A93DAAE2C22C7E100EA0D63 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */,
+				0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */,
+				0A93DAB32C22C83800EA0D63 /* CameraView+Buttons.swift */,
+				0A93DAB52C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift */,
+				0A93DAB72C22C85800EA0D63 /* CameraView+VerticalControlBar.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A93DAB92C22C86800EA0D63 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */,
+				0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */,
+				0A93DABE2C22C92500EA0D63 /* View+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D93C263E2C22BBC700A15FEF = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +152,7 @@
 		D93C26492C22BBC700A15FEF /* SnapGroup */ = {
 			isa = PBXGroup;
 			children = (
+				0A93DAAA2C22C75C00EA0D63 /* Camera */,
 				D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */,
 				D93C264C2C22BBC700A15FEF /* ContentView.swift */,
 				D93C264E2C22BBC800A15FEF /* Assets.xcassets */,
@@ -231,8 +290,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A93DAB22C22C82600EA0D63 /* CameraPreview.swift in Sources */,
+				0A93DAB42C22C83900EA0D63 /* CameraView+Buttons.swift in Sources */,
+				0A93DABB2C22C8A800EA0D63 /* ControlButtonView.swift in Sources */,
 				D93C264D2C22BBC700A15FEF /* ContentView.swift in Sources */,
+				0A93DABD2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift in Sources */,
+				0A93DABF2C22C92500EA0D63 /* View+.swift in Sources */,
 				D93C264B2C22BBC700A15FEF /* SnapGroupApp.swift in Sources */,
+				0A93DAAD2C22C7B500EA0D63 /* CameraViewModel.swift in Sources */,
+				0A93DAB82C22C85800EA0D63 /* CameraView+VerticalControlBar.swift in Sources */,
+				0A93DAB62C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift in Sources */,
+				0A93DAB02C22C80B00EA0D63 /* CameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,12 +376,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
 			};
 			name = Debug;
 		};
@@ -363,10 +433,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
 			};
 			name = Release;
 		};
@@ -378,7 +450,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
+				DEVELOPMENT_TEAM = 8FL882H4L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -408,7 +480,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
+				DEVELOPMENT_TEAM = 8FL882H4L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -440,16 +512,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
+				DEVELOPMENT_TEAM = 8FL882H4L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to access your camera to take pictures.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -473,16 +546,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
+				DEVELOPMENT_TEAM = 8FL882H4L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to access your camera to take pictures.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

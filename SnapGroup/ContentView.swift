@@ -8,16 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var imageData: Data? = nil
+    @State private var showCamera: Bool = false
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            if let imageData, let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(.gray)
+            }
+            Button("Take Photo") {
+                showCamera = true
+            }
+            .padding()
         }
+        .padding()
+        .fullScreenCamera(isPresented: $showCamera, imageData: $imageData)
     }
 }
-
+    
 #Preview {
     ContentView()
 }
