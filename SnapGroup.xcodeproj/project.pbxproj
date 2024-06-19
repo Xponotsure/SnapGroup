@@ -153,8 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				0A93DAAA2C22C75C00EA0D63 /* Camera */,
-				D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */,
 				D93C264C2C22BBC700A15FEF /* ContentView.swift */,
+				D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */,
 				D93C264E2C22BBC800A15FEF /* Assets.xcassets */,
 				D93C26502C22BBC800A15FEF /* Preview Content */,
 			);
@@ -450,7 +450,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 8FL882H4L2;
+				DEVELOPMENT_TEAM = CLWP32G426;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -480,7 +480,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 8FL882H4L2;
+				DEVELOPMENT_TEAM = CLWP32G426;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -512,11 +512,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = 8FL882H4L2;
+				DEVELOPMENT_TEAM = CLWP32G426;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to access your camera to take pictures.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to save photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Need to save photo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -546,11 +548,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = 8FL882H4L2;
+				DEVELOPMENT_TEAM = CLWP32G426;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to access your camera to take pictures.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to save photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Need to save photo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
