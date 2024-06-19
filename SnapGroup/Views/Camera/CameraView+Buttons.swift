@@ -11,7 +11,7 @@ extension CameraView {
     var usePhotoButton: some View {
         ControlButtonView(label: "Use Photo") {
             imageData = VM.photoData
-            showCamera = false
+//            showCamera = false
         }
     }
     
@@ -23,7 +23,7 @@ extension CameraView {
     
     var cancelButton: some View {
         ControlButtonView(label: "Cancel") {
-            showCamera = false
+//            showCamera = false
         }
     }
     
@@ -56,5 +56,5 @@ extension CameraView {
 }
 
 #Preview {
-    CameraView (imageData: .constant(nil), showCamera: .constant(true))
+    CameraView()
 }

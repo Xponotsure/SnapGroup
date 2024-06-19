@@ -29,7 +29,7 @@ struct ContentView: View {
             .padding()
         }
         .padding()
-        .fullScreenCamera(isPresented: $showCamera, imageData: $imageData)
+//        .fullScreenCamera(isPresented: $showCamera, imageData: $imageData)
     }
 }
     

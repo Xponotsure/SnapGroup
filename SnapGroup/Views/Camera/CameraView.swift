@@ -12,8 +12,8 @@ struct CameraView: View {
     
     @State internal var VM = CameraViewModel()
     
-    @Binding var imageData: Data?
-    @Binding var showCamera: Bool
+    @State var imageData: Data?
+    //    @State var showCamera: Bool?
     
     @State private var focusPoint: CGPoint = .zero
     @State private var showFocusIndicator: Bool = false
@@ -55,8 +55,8 @@ struct CameraView: View {
                 .onAppear() {
                     VM.requestAccessAndSetup()
                 }
+                .aspectRatio(3.0/4.0,contentMode: .fit)
         }
-        .ignoresSafeArea()
     }
     
     private var focusIndicator: some View {
@@ -74,5 +74,5 @@ struct CameraView: View {
 }
 
 #Preview {
-    CameraView (imageData: .constant(nil), showCamera: .constant(true))
+    CameraView()
 }

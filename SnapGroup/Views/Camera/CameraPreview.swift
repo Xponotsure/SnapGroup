@@ -48,12 +48,25 @@ struct CameraPreview: UIViewRepresentable {
         cameraVM.preview.frame = frame
         cameraVM.preview.videoGravity = .resizeAspectFill
         view.layer.addSublayer(cameraVM.preview)
+        
+        // Calculate the correct frame size for 3:4 aspect ratio
+        let previewWidth = frame.width
+        let previewHeight = previewWidth * 4 / 3
+        cameraVM.preview.frame = CGRect(x: 0, y: (frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
+
+
 
         return view
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
-        cameraVM.preview.frame = frame
+//        cameraVM.preview.frame = frame
+//        cameraVM.preview.connection?.videoRotationAngle =x` UIDevice.current.orientation.videoRotationAngle
+        
+        let previewWidth = frame.width
+        let previewHeight = previewWidth * 4 / 3
+        cameraVM.preview.frame = CGRect(x: 0, y: (frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
         cameraVM.preview.connection?.videoRotationAngle = UIDevice.current.orientation.videoRotationAngle
+
     }
 }

@@ -40,5 +40,5 @@ extension CameraView {
 }
 
 #Preview {
-    CameraView (imageData: .constant(nil), showCamera: .constant(true))
+    CameraView()
 }
