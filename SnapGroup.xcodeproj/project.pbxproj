@@ -91,46 +91,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A93DAAA2C22C75C00EA0D63 /* Camera */ = {
-			isa = PBXGroup;
-			children = (
-				0A93DAAB2C22C7A500EA0D63 /* View Models */,
-				0A93DAAE2C22C7E100EA0D63 /* Views */,
-				0A93DAB92C22C86800EA0D63 /* Extensions */,
-			);
-			path = Camera;
-			sourceTree = "<group>";
-		};
-		0A93DAAB2C22C7A500EA0D63 /* View Models */ = {
-			isa = PBXGroup;
-			children = (
-				0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */,
-			);
-			path = "View Models";
-			sourceTree = "<group>";
-		};
-		0A93DAAE2C22C7E100EA0D63 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */,
-				0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */,
-				0A93DAB32C22C83800EA0D63 /* CameraView+Buttons.swift */,
-				0A93DAB52C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift */,
-				0A93DAB72C22C85800EA0D63 /* CameraView+VerticalControlBar.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		0A93DAB92C22C86800EA0D63 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */,
-				0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */,
-				0A93DABE2C22C92500EA0D63 /* View+.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		D93C263E2C22BBC700A15FEF = {
 			isa = PBXGroup;
 			children = (
@@ -152,7 +112,11 @@
 		D93C26492C22BBC700A15FEF /* SnapGroup */ = {
 			isa = PBXGroup;
 			children = (
-				0A93DAAA2C22C75C00EA0D63 /* Camera */,
+				D93C26732C231EBF00A15FEF /* Extensions */,
+				D93C26702C2315EE00A15FEF /* Models */,
+				D93C26742C23225500A15FEF /* Components */,
+				D93C266F2C2315E600A15FEF /* ViewModels */,
+				D93C26712C2315F600A15FEF /* Views */,
 				D93C264C2C22BBC700A15FEF /* ContentView.swift */,
 				D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */,
 				D93C264E2C22BBC800A15FEF /* Assets.xcassets */,
@@ -186,6 +150,58 @@
 				D93C26632C22BBC900A15FEF /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D93C266F2C2315E600A15FEF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D93C26702C2315EE00A15FEF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D93C26712C2315F600A15FEF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D93C26722C231E7D00A15FEF /* Camera */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D93C26722C231E7D00A15FEF /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */,
+				0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */,
+				0A93DAB32C22C83800EA0D63 /* CameraView+Buttons.swift */,
+				0A93DAB52C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift */,
+				0A93DAB72C22C85800EA0D63 /* CameraView+VerticalControlBar.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		D93C26732C231EBF00A15FEF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */,
+				0A93DABE2C22C92500EA0D63 /* View+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D93C26742C23225500A15FEF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -450,7 +466,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -480,7 +496,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -512,7 +528,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -548,7 +564,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
