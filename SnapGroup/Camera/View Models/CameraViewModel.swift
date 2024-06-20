@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 import UIKit
 import SwiftUI
+import Photos
 
 @Observable
 class CameraViewModel: NSObject {
@@ -145,7 +146,11 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
         
         guard let provider = CGDataProvider(data: imageData as CFData) else { return }
         guard let cgImage = CGImage (jpegDataProviderSource: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent) else { return }
-        
+        guard let imageData = photo.fileDataRepresentation() else { return }
+        let capturedImage = UIImage(data: imageData)
+        if let image = capturedImage {
+            saveImageToGallery(image)
+        }
         Task(priority: .background) {
             self.session.stopRunning()
             await MainActor.run {
@@ -161,6 +166,25 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
                     }
                 }
             }
+            
         }
+    }
+    func saveImageToGallery(_ image: UIImage) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        })                   // allert kalau sudah disimpan
+//        { success, error in
+//            if success {
+//                DispatchQueue.main.async {
+//                    self.alertMessage = "Your photo has been saved to the gallery."
+//                    self.showAlert = true
+//                }
+//            } else if let error = error {
+//                DispatchQueue.main.async {
+//                    self.alertMessage = "Error saving photo: \(error.localizedDescription)"
+//                    self.showAlert = true
+//                }
+//            }
+//        }
     }
 }
