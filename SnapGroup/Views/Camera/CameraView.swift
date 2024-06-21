@@ -15,11 +15,14 @@ struct CameraView: View {
     @State var imageData: Data?
     //    @State var showCamera: Bool?
     
+    @State var openTimer = false
+    
     @State private var focusPoint: CGPoint = .zero
     @State private var showFocusIndicator: Bool = false
+    @State private var countdown: Int? = nil
     
     let controlButtonWidth: CGFloat = 120
-    let controlFrameHeight: CGFloat = 90
+    let controlFrameHeight: CGFloat = 180
     
     var isLandscape: Bool {vertiSizeClass == .compact}
     
@@ -45,6 +48,19 @@ struct CameraView: View {
             if showFocusIndicator {
                 focusIndicator
                     .position(focusPoint)
+            }
+            
+            if let countdown = countdown {
+                Text("\(countdown)")
+                    .font(.system(size: 60))
+                    .foregroundColor(.white)
+            }
+        }
+        .onAppear {
+            VM.onCountdownUpdate = { value in
+                withAnimation {
+                    self.countdown = value
+                }
             }
         }
     }

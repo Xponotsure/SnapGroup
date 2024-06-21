@@ -22,6 +22,7 @@ class CameraViewModel: NSObject {
     var session = AVCaptureSession()
     var preview = AVCaptureVideoPreviewLayer()
     var output = AVCapturePhotoOutput()
+    var timeSet = 0
     
     var photoData: Data? {
         if case .finished(let data) = photoCaptureState {
@@ -33,6 +34,8 @@ class CameraViewModel: NSObject {
     var hasPhoto: Bool {photoData != nil}
 
     private (set) var photoCaptureState: PhotoCaptureState = .notStarted
+    
+    var onCountdownUpdate: ((Int?) -> Void)?
     
     func requestAccessAndSetup() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -76,10 +79,33 @@ class CameraViewModel: NSObject {
     }
     
     func takePhoto() {
-        guard case .notStarted = photoCaptureState else { return }
-        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
-        withAnimation {
-            self.photoCaptureState = .processing
+        let capturePhoto = {
+            guard case .notStarted = self.photoCaptureState else { return }
+            self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+            withAnimation {
+                self.photoCaptureState = .processing
+            }
+        }
+
+        if timeSet != 0 {
+            startCountdown(duration: timeSet) {
+                capturePhoto()
+            }
+        } else {
+            capturePhoto()
+        }
+    }
+    
+    private func startCountdown(duration: Int, completion: @escaping () -> Void) {
+        onCountdownUpdate?(duration)
+        for i in (0...duration).reversed() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(duration - i)) {
+                self.onCountdownUpdate?(i)
+                if i == 0 {
+                    self.onCountdownUpdate?(nil)
+                    completion()
+                }
+            }
         }
     }
     
