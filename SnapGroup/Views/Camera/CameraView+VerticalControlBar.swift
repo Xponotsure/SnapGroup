@@ -17,14 +17,22 @@ extension CameraView {
     }
     
     var verticalControlBarPrePhoto: some View {
-        VStack {
-            flashToggleButton
-                .frame(height: controlButtonWidth)
-            Spacer()
-            photoCaptureButton
-            Spacer()
-            cancelButton
-                .frame(height: controlButtonWidth)
+        HStack {
+            VStack {
+                timerButton
+                Spacer()
+                flashToggleButton
+            }
+            .padding(.vertical, 20)
+            VStack {
+                Spacer()
+                    .frame(height: controlButtonWidth)
+                Spacer()
+                photoCaptureButton
+                Spacer()
+                cancelButton
+                    .frame(height: controlButtonWidth)
+            }
         }
     }
     
