@@ -17,16 +17,15 @@ class CameraViewModel: NSObject, ObservableObject {
         case finished(Data)
     }
     
-    @Published var timeSet: Int = 0
+    var timeSet: Int = 0
     var timer: Timer?
-    var onCountdownUpdate: ((Int) -> Void)?
+    var onCountdownUpdate: ((Int?) -> Void)?
     var session = AVCaptureSession()
     var preview = AVCaptureVideoPreviewLayer()
     var output = AVCapturePhotoOutput()
     
     @Published var photoCaptureState: PhotoCaptureState = .notStarted
-    @Published var isShowingPhotoViewer = false
-    @Published var thumbnailImage: UIImage?
+    @Published var isUsingFrontCamera = false
     
     var photoData: Data? {
         if case .finished(let data) = photoCaptureState {
@@ -57,7 +56,8 @@ class CameraViewModel: NSObject, ObservableObject {
         session.sessionPreset = .photo
         
         do {
-            guard let device = AVCaptureDevice.default(for: .video) else { return }
+            let device = isUsingFrontCamera ? frontCameraDevice() : backCameraDevice()
+            guard let device = device else { return }
             let input = try AVCaptureDeviceInput(device: device)
             
             if session.canAddInput(input) {
@@ -78,25 +78,33 @@ class CameraViewModel: NSObject, ObservableObject {
         }
     }
     
+    func switchCamera() {
+        isUsingFrontCamera.toggle()
+        session.stopRunning()
+        session.inputs.forEach { session.removeInput($0) }
+        setup()
+    }
     func startTimer() {
-        guard timeSet > 0 else {
-            takePhoto()
-            return
-        }
-        
-        var countdown = timeSet
-        onCountdownUpdate?(countdown)
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-            countdown -= 1
-            self?.onCountdownUpdate?(countdown)
+            guard timeSet > 0 else {
+                takePhoto()
+                return
+            }
             
-            if countdown <= 0 {
-                timer.invalidate()
-                self?.takePhoto()
+            var countdown = timeSet
+            onCountdownUpdate?(countdown)
+            
+            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+                countdown -= 1
+                self?.onCountdownUpdate?(countdown)
+                
+                if countdown <= 0 {
+                    timer.invalidate()
+                    self?.onCountdownUpdate?(nil) // Set countdown to nil after timer finishes
+                    self?.takePhoto()
+                }
             }
         }
-    }
+
     
     func takePhoto() {
         guard case .notStarted = photoCaptureState else { return }
@@ -147,6 +155,14 @@ class CameraViewModel: NSObject, ObservableObject {
         return (session.inputs.first as? AVCaptureDeviceInput)?.device
     }
     
+    private func frontCameraDevice() -> AVCaptureDevice? {
+        return AVCaptureDevice.devices().first { $0.position == .front }
+    }
+    
+    private func backCameraDevice() -> AVCaptureDevice? {
+        return AVCaptureDevice.devices().first { $0.position == .back }
+    }
+    
     private func saveImageToGallery(_ image: UIImage) {
         PHPhotoLibrary.shared().performChanges({
             PHAssetChangeRequest.creationRequestForAsset(from: image)
@@ -182,9 +198,7 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
         DispatchQueue.main.async {
             withAnimation {
                 self.photoCaptureState = .finished(imageData)
-                self.thumbnailImage = image
             }
-            // Setelah foto diambil, kamera siap untuk pengambilan foto berikutnya
             self.retakePhoto()
         }
     }
@@ -194,4 +208,6 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
             photoCaptureState = .notStarted
         }
     }
+    
+    
 }
