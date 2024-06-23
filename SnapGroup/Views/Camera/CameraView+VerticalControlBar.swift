@@ -9,14 +9,6 @@ import SwiftUI
 
 extension CameraView {
     @ViewBuilder var verticalControlBar: some View {
-        if (VM.hasPhoto) {
-            verticalControlBarPostPhoto
-        } else {
-            verticalControlBarPrePhoto
-        }
-    }
-    
-    var verticalControlBarPrePhoto: some View {
         HStack {
             VStack {
                 timerButton
@@ -25,24 +17,27 @@ extension CameraView {
             }
             .padding(.vertical, 20)
             VStack {
-                Spacer()
-                    .frame(height: controlButtonWidth)
-                Spacer()
+                if let imageData = imageData, let image = UIImage(data: imageData) {
+                    thumbnailPreview(image: image)
+                        .padding(.top,20)
+                }
+                else {
+                    Rectangle()
+                        .fill(Color.gray)
+                        .frame(width: 50, height: 50)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.top, 25)
+                }
+                Spacer().frame(height:90)
+                
                 photoCaptureButton
+
                 Spacer()
-                cancelButton
-                    .frame(height: controlButtonWidth)
+                switchCameraButton
+                    .padding(.top,25)
+                // cancelButton.frame(height: controlButtonWidth)
+                Spacer()
             }
-        }
-    }
-    
-    var verticalControlBarPostPhoto: some View {
-        VStack {
-            usePhotoButton
-                .frame(height: controlButtonWidth)
-            Spacer()
-            retakeButton
-                .frame(height: controlButtonWidth)
         }
     }
 }

@@ -7,10 +7,8 @@
 
 import SwiftUI
 import AVFoundation
-
 struct CameraPreview: UIViewRepresentable {
-    
-    @Binding var cameraVM: CameraViewModel
+    @ObservedObject var cameraVM: CameraViewModel
     let frame: CGRect
     
     @Binding var focusPoint: CGPoint
@@ -39,8 +37,8 @@ struct CameraPreview: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> UIView {
-        let view = UIViewType (frame: frame)
-        //
+        let view = UIView(frame: frame)
+        
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTapGesture(_:)))
         view.addGestureRecognizer(tapGesture)
         
@@ -49,24 +47,18 @@ struct CameraPreview: UIViewRepresentable {
         cameraVM.preview.videoGravity = .resizeAspectFill
         view.layer.addSublayer(cameraVM.preview)
         
-        // Calculate the correct frame size for 3:4 aspect ratio
         let previewWidth = frame.width
         let previewHeight = previewWidth * 4 / 3
         cameraVM.preview.frame = CGRect(x: 0, y: (frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
-
-
 
         return view
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
-//        cameraVM.preview.frame = frame
-//        cameraVM.preview.connection?.videoRotationAngle =x` UIDevice.current.orientation.videoRotationAngle
-        
         let previewWidth = frame.width
         let previewHeight = previewWidth * 4 / 3
         cameraVM.preview.frame = CGRect(x: 0, y: (frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
         cameraVM.preview.connection?.videoRotationAngle = UIDevice.current.orientation.videoRotationAngle
-
     }
 }
+

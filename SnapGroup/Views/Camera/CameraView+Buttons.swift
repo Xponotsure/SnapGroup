@@ -8,28 +8,13 @@
 import SwiftUI
 
 extension CameraView {
-    var usePhotoButton: some View {
-        ControlButtonView(label: "Use Photo") {
-            imageData = VM.photoData
-//            showCamera = false
-        }
-    }
-    
-    var retakeButton: some View {
-        ControlButtonView(label: "Retake") {
-            VM.retakePhoto()
-        }
-    }
-    
     var cancelButton: some View {
-        ControlButtonView(label: "Cancel") {
-//            showCamera = false
-        }
+        ControlButtonView(label: "Cancel") {}
     }
     
     var photoCaptureButton: some View {
         Button {
-            VM.takePhoto()
+            VM.startTimer()
         } label: {
             ZStack {
                 Circle()
@@ -58,6 +43,22 @@ extension CameraView {
         }
     }
     
+    var switchCameraButton: some View {
+        Button(action: {
+            VM.switchCamera()
+        }) {
+            Image(systemName: "camera.rotate")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 29, height: 29)
+                .foregroundColor(.white)
+                .frame(width: 39, height: 39)
+                .padding(5)
+                .background(Color(red: 50/255, green: 50/255, blue: 50/255))
+                .clipShape(Circle())
+        }
+    }
+    
     var timerButton: some View {
         Button(action: {
             openTimer.toggle()
@@ -72,7 +73,7 @@ extension CameraView {
                     .padding(5)
                     .background(Color(red: 50/255, green: 50/255, blue: 50/255))
                     .clipShape(Circle())
-                    .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
+                    .zIndex(1.0)
                 
                 if openTimer {
                     HStack {
@@ -100,6 +101,7 @@ extension CameraView {
         }
     }
 }
+
 
 #Preview {
     CameraView()

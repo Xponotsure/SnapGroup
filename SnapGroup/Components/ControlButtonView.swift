@@ -6,15 +6,12 @@
 //
 
 import SwiftUI
-
 struct ControlButtonView: View {
     let label: String
     let action: () -> Void
     
     var body: some View {
-        Button {
-            action()
-        } label: {
+        Button(action: action) {
             Text(label)
                 .tint(.white)
                 .font(.title3)
@@ -23,6 +20,7 @@ struct ControlButtonView: View {
     }
 }
 
-#Preview {
-    ControlButtonView(label: "Cancel", action: {})
-}
+
+//#Preview {
+ //   ControlButtonView(label: "Cancel", action: {})
+//}
