@@ -31,9 +31,6 @@ class CameraViewModel: NSObject, ObservableObject {
     @Published var isUsingFrontCamera = false
     @Published var detectedFaces: [VNFaceObservation] = []
     
-    @Published var photoCaptureState: PhotoCaptureState = .notStarted
-    @Published var isUsingFrontCamera = false
-    
     var photoData: Data? {
         if case .finished(let data) = photoCaptureState {
             return data
@@ -177,7 +174,7 @@ class CameraViewModel: NSObject, ObservableObject {
         }
     }
     
-    private func getCurrentCameraDevice() -> AVCaptureDevice? {
+    func getCurrentCameraDevice() -> AVCaptureDevice? {
         return (session.inputs.first as? AVCaptureDeviceInput)?.device
     }
     
