@@ -76,9 +76,6 @@ struct CameraView: View {
      var cameraPreview: some View {
         GeometryReader { geo in
             CameraPreview(cameraVM: VM, frame: geo.frame(in: .global), focusPoint: $focusPoint, showFocusIndicator: $showFocusIndicator)
-                .onAppear {
-                    VM.requestAccessAndSetup()
-                }
                 .aspectRatio(3.0 / 4.0, contentMode: .fit)
         }
     }

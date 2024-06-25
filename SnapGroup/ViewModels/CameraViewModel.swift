@@ -9,6 +9,7 @@ import AVFoundation
 import UIKit
 import SwiftUI
 import Photos
+import Vision
 
 class CameraViewModel: NSObject, ObservableObject {
     enum PhotoCaptureState {
@@ -22,10 +23,13 @@ class CameraViewModel: NSObject, ObservableObject {
     var onCountdownUpdate: ((Int?) -> Void)?
     var session = AVCaptureSession()
     var preview = AVCaptureVideoPreviewLayer()
-    var output = AVCapturePhotoOutput()
+    var photoOutput = AVCapturePhotoOutput()
+    var videoOutput = AVCaptureVideoDataOutput()
+    private var faceDetectionRequest: VNDetectFaceRectanglesRequest!
     
     @Published var photoCaptureState: PhotoCaptureState = .notStarted
     @Published var isUsingFrontCamera = false
+    @Published var detectedFaces: [VNFaceObservation] = []
     
     var photoData: Data? {
         if case .finished(let data) = photoCaptureState {
@@ -36,6 +40,13 @@ class CameraViewModel: NSObject, ObservableObject {
     
     var hasPhoto: Bool { photoData != nil }
     
+    
+    override init() {
+        super.init()
+        requestAccessAndSetup()
+//        setupFaceDetection()
+    }
+
     func requestAccessAndSetup() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
@@ -51,6 +62,7 @@ class CameraViewModel: NSObject, ObservableObject {
         }
     }
     
+    
     private func setup() {
         session.beginConfiguration()
         session.sessionPreset = .photo
@@ -58,21 +70,32 @@ class CameraViewModel: NSObject, ObservableObject {
         do {
             let device = isUsingFrontCamera ? frontCameraDevice() : backCameraDevice()
             guard let device = device else { return }
+            
             let input = try AVCaptureDeviceInput(device: device)
+            
+            for input in session.inputs {
+                session.removeInput(input)
+            }
             
             if session.canAddInput(input) {
                 session.addInput(input)
             }
             
-            if session.canAddOutput(output) {
-                session.addOutput(output)
+            if session.canAddOutput(photoOutput) {
+                session.addOutput(photoOutput)
             }
             
-            preview.videoGravity = .resizeAspectFill
-            preview.session = session
+            videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
+            
+            if session.canAddOutput(videoOutput) {
+                session.addOutput(videoOutput)
+            }
             
             session.commitConfiguration()
-            session.startRunning()
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.session.startRunning()
+            }
         } catch {
             print("Failed to set up camera: \(error.localizedDescription)")
         }
@@ -110,7 +133,7 @@ class CameraViewModel: NSObject, ObservableObject {
         guard case .notStarted = photoCaptureState else { return }
         
         let settings = AVCapturePhotoSettings()
-        output.capturePhoto(with: settings, delegate: self)
+        photoOutput.capturePhoto(with: settings, delegate: self)
         
         withAnimation {
             photoCaptureState = .processing
@@ -174,6 +197,32 @@ class CameraViewModel: NSObject, ObservableObject {
             }
         })
     }
+    
+    func setupPreviewLayer(in view: UIView) {
+        preview.session = session
+        preview.videoGravity = .resizeAspectFill
+        preview.frame = view.bounds
+        view.layer.addSublayer(preview)
+    }
+
+    
+//    private func setupFaceDetection() {
+//        faceDetectionRequest = VNDetectFaceRectanglesRequest { [weak self] (request, error) in
+//            if let results = request.results as? [VNFaceObservation] {
+//                DispatchQueue.main.async {
+//                    self?.detectedFaces = results
+//                }
+//            }
+//        }
+//    }
+    
+    func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, screenSize: CGSize) {
+           guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+           let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
+//           try? requestHandler.perform([faceDetectionRequest])
+       }
+
+
 }
 
 extension CameraViewModel: AVCapturePhotoCaptureDelegate {
@@ -211,3 +260,12 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
     
     
 }
+
+extension CameraViewModel: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+//        guard let previewLayer = preview else { return }
+        let screenSize = preview.frame.size
+        processSampleBuffer(sampleBuffer, screenSize: screenSize)
+    }
+}
+
