@@ -16,11 +16,33 @@ struct CameraPreview: UIViewRepresentable {
     
     class Coordinator: NSObject {
         var parent: CameraPreview
-
+        private var initialZoomFactor: CGFloat = 1.0
         init(parent: CameraPreview) {
-            self.parent = parent
-        }
-
+              self.parent = parent
+          }
+//          @objc func handlePinch(_ sender: UIPinchGestureRecognizer) {
+//                   guard let device = self.parent.cameraVM.getCurrentCameraDevice() else { return }
+//                   if sender.state == .changed {
+//                     let newScaleFactor = min(max(1.0, sender.scale * device.videoZoomFactor), device.activeFormat.videoMaxZoomFactor)
+//                     self.parent.cameraVM.setZoom(scale: newScaleFactor)
+//                 }
+//             }
+        
+        @objc func handlePinch(_ sender: UIPinchGestureRecognizer) {
+                    guard let device = self.parent.cameraVM.getCurrentCameraDevice() else { return }
+                    switch sender.state {
+                    case .began:
+                        initialZoomFactor = device.videoZoomFactor
+                    case .changed:
+                        let maxZoomFactor = device.activeFormat.videoMaxZoomFactor
+                        let newScaleFactor = min(max(1.0, initialZoomFactor * sender.scale), maxZoomFactor)
+                        let smoothZoomFactor = (device.videoZoomFactor + newScaleFactor) / 2.0
+                        self.parent.cameraVM.setZoom(scale: smoothZoomFactor)
+                    default:
+                        break
+                    }
+                }
+        
         @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
             let location = gesture.location(in: gesture.view)
             let frameSize = gesture.view?.frame.size ?? CGSize.zero
@@ -38,7 +60,8 @@ struct CameraPreview: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UIView {
         let view = UIView(frame: frame)
-        
+        let pinchGesture = UIPinchGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handlePinch(_:)))
+               view.addGestureRecognizer(pinchGesture)
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTapGesture(_:)))
         view.addGestureRecognizer(tapGesture)
         

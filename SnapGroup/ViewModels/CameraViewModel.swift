@@ -151,7 +151,7 @@ class CameraViewModel: NSObject, ObservableObject {
         }
     }
     
-    private func getCurrentCameraDevice() -> AVCaptureDevice? {
+    func getCurrentCameraDevice() -> AVCaptureDevice? {
         return (session.inputs.first as? AVCaptureDeviceInput)?.device
     }
     
@@ -162,6 +162,18 @@ class CameraViewModel: NSObject, ObservableObject {
     private func backCameraDevice() -> AVCaptureDevice? {
         return AVCaptureDevice.devices().first { $0.position == .back }
     }
+    func setZoom(scale: CGFloat) {
+            guard let device = getCurrentCameraDevice() else { return }
+            do {
+                try device.lockForConfiguration()
+                device.videoZoomFactor = max(1.0, min(device.activeFormat.videoMaxZoomFactor, scale))
+                device.unlockForConfiguration()
+            } catch {
+                print("Zoom configuration error: \(error.localizedDescription)")
+            }
+        }
+    
+    
     
     private func saveImageToGallery(_ image: UIImage) {
         PHPhotoLibrary.shared().performChanges({
