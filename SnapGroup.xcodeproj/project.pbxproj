@@ -26,6 +26,7 @@
 		D93C265F2C22BBC800A15FEF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C265E2C22BBC800A15FEF /* ContentView.swift */; };
 		D93C26612C22BBC900A15FEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C26602C22BBC900A15FEF /* Assets.xcassets */; };
 		D93C26642C22BBC900A15FEF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C26632C22BBC900A15FEF /* Preview Assets.xcassets */; };
+		D93C26992C2ACC4300A15FEF /* FaceDetectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C26982C2ACC4300A15FEF /* FaceDetectionOverlayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		D93C265E2C22BBC800A15FEF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D93C26602C22BBC900A15FEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D93C26632C22BBC900A15FEF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D93C26982C2ACC4300A15FEF /* FaceDetectionOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionOverlayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */,
+				D93C26982C2ACC4300A15FEF /* FaceDetectionOverlayView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				0A93DAB42C22C83900EA0D63 /* CameraView+Buttons.swift in Sources */,
 				0A93DABB2C22C8A800EA0D63 /* ControlButtonView.swift in Sources */,
 				D93C264D2C22BBC700A15FEF /* ContentView.swift in Sources */,
+				D93C26992C2ACC4300A15FEF /* FaceDetectionOverlayView.swift in Sources */,
 				0A93DABD2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift in Sources */,
 				0A07C5E82C2A9B2800AEDE72 /* CameraView+TopControlBar.swift in Sources */,
 				0A93DABF2C22C92500EA0D63 /* View+.swift in Sources */,

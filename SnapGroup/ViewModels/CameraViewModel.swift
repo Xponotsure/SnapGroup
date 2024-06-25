@@ -44,7 +44,7 @@ class CameraViewModel: NSObject, ObservableObject {
     override init() {
         super.init()
         requestAccessAndSetup()
-//        setupFaceDetection()
+        setupFaceDetection()
     }
 
     func requestAccessAndSetup() {
@@ -206,20 +206,20 @@ class CameraViewModel: NSObject, ObservableObject {
     }
 
     
-//    private func setupFaceDetection() {
-//        faceDetectionRequest = VNDetectFaceRectanglesRequest { [weak self] (request, error) in
-//            if let results = request.results as? [VNFaceObservation] {
-//                DispatchQueue.main.async {
-//                    self?.detectedFaces = results
-//                }
-//            }
-//        }
-//    }
+    private func setupFaceDetection() {
+        faceDetectionRequest = VNDetectFaceRectanglesRequest { [weak self] (request, error) in
+            if let results = request.results as? [VNFaceObservation] {
+                DispatchQueue.main.async {
+                    self?.detectedFaces = results
+                }
+            }
+        }
+    }
     
     func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, screenSize: CGSize) {
            guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
            let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
-//           try? requestHandler.perform([faceDetectionRequest])
+           try? requestHandler.perform([faceDetectionRequest])
        }
 
 

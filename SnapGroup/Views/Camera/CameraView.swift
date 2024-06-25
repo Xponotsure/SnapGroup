@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import AVFoundation
+import Vision
 
 struct CameraView: View {
     @Environment(\.verticalSizeClass) var vertiSizeClass
@@ -77,6 +78,10 @@ struct CameraView: View {
         GeometryReader { geo in
             CameraPreview(cameraVM: VM, frame: geo.frame(in: .global), focusPoint: $focusPoint, showFocusIndicator: $showFocusIndicator)
                 .aspectRatio(3.0 / 4.0, contentMode: .fit)
+            
+            ForEach(VM.detectedFaces, id: \.self) { face in
+                FaceDetectionOverlayView(faceObservation: face, screenSize: geo.size)
+            }
         }
     }
     
