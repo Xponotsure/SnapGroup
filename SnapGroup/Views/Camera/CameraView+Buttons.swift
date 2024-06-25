@@ -9,30 +9,12 @@ import SwiftUI
 
 extension CameraView {
     var cancelButton: some View {
-        Button {
-            VM.cancelCapturePhoto()
-            
-            isPhotoCaptureButtonDisabled = true
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                isPhotoCaptureButtonDisabled = false
-            }
-        } label: {
-            ZStack {
-                Rectangle()
-                    .fill(.white)
-                    .frame(width: 40, height: 40)
-                    .cornerRadius(6)
-                Circle()
-                    .stroke(.white, lineWidth: 3)
-                    .frame(width: 75)
-            }
-        }
+        ControlButtonView(label: "Cancel") {}
     }
     
     var photoCaptureButton: some View {
         Button {
-            VM.takePhoto()
+            VM.startTimer()
         } label: {
             ZStack {
                 Circle()
@@ -43,7 +25,6 @@ extension CameraView {
                     .frame(width: 75)
             }
         }
-        .disabled(isPhotoCaptureButtonDisabled)
     }
     
     var flashToggleButton: some View {

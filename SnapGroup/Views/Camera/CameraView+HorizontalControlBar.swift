@@ -14,8 +14,6 @@ extension CameraView {
                 Spacer()
                 timerButton
             }
-            .padding(.top, 9)
-            .padding(.bottom, 15)
             .padding(.horizontal, 20)
             HStack {
                 if let imageData = imageData, let image = UIImage(data: imageData) {
@@ -29,11 +27,7 @@ extension CameraView {
                         .padding(.leading, 20)
                 }
                 Spacer()
-                if(VM.isCountingDown == true) {
-                    cancelButton
-                } else {
-                    photoCaptureButton
-                }
+                photoCaptureButton
                 Spacer()
                 switchCameraButton
                     .padding(.trailing, 20)
@@ -41,7 +35,6 @@ extension CameraView {
                 
             }
         }
-        .frame(height: 168.75)
     }
 }
 

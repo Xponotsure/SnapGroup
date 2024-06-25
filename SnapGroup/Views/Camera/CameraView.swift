@@ -24,14 +24,10 @@ struct CameraView: View {
     
     var isLandscape: Bool { vertiSizeClass == .compact }
     
-    @State internal var isPhotoCaptureButtonDisabled = false
-    
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
             VStack {
-                topControlBar
-                
                 HStack {
                     cameraPreview
                     if isLandscape {
@@ -107,7 +103,7 @@ struct CameraView: View {
             Image(uiImage: image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 50, height: 50)
+                .frame(width: 70, height: 70)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
