@@ -31,6 +31,9 @@ class CameraViewModel: NSObject, ObservableObject {
     @Published var isUsingFrontCamera = false
     @Published var detectedFaces: [VNFaceObservation] = []
     
+    @Published var photoCaptureState: PhotoCaptureState = .notStarted
+    @Published var isUsingFrontCamera = false
+    
     var photoData: Data? {
         if case .finished(let data) = photoCaptureState {
             return data
@@ -185,6 +188,18 @@ class CameraViewModel: NSObject, ObservableObject {
     private func backCameraDevice() -> AVCaptureDevice? {
         return AVCaptureDevice.devices().first { $0.position == .back }
     }
+    func setZoom(scale: CGFloat) {
+            guard let device = getCurrentCameraDevice() else { return }
+            do {
+                try device.lockForConfiguration()
+                device.videoZoomFactor = max(1.0, min(device.activeFormat.videoMaxZoomFactor, scale))
+                device.unlockForConfiguration()
+            } catch {
+                print("Zoom configuration error: \(error.localizedDescription)")
+            }
+        }
+    
+    
     
     private func saveImageToGallery(_ image: UIImage) {
         PHPhotoLibrary.shared().performChanges({
@@ -267,5 +282,7 @@ extension CameraViewModel: AVCaptureVideoDataOutputSampleBufferDelegate {
         let screenSize = preview.frame.size
         processSampleBuffer(sampleBuffer, screenSize: screenSize)
     }
+    
+    
 }
 

@@ -16,13 +16,35 @@ struct CameraPreview: UIViewControllerRepresentable {
     
     class Coordinator: NSObject {
         var parent: CameraPreview
-
+        private var initialZoomFactor: CGFloat = 1.0
         init(parent: CameraPreview) {
             self.parent = parent
             super.init()
 
-        }
-
+        }   
+//          @objc func handlePinch(_ sender: UIPinchGestureRecognizer) {
+//                   guard let device = self.parent.cameraVM.getCurrentCameraDevice() else { return }
+//                   if sender.state == .changed {
+//                     let newScaleFactor = min(max(1.0, sender.scale * device.videoZoomFactor), device.activeFormat.videoMaxZoomFactor)
+//                     self.parent.cameraVM.setZoom(scale: newScaleFactor)
+//                 }
+//             }
+        
+        @objc func handlePinch(_ sender: UIPinchGestureRecognizer) {
+                    guard let device = self.parent.cameraVM.getCurrentCameraDevice() else { return }
+                    switch sender.state {
+                    case .began:
+                        initialZoomFactor = device.videoZoomFactor
+                    case .changed:
+                        let maxZoomFactor = device.activeFormat.videoMaxZoomFactor
+                        let newScaleFactor = min(max(1.0, initialZoomFactor * sender.scale), maxZoomFactor)
+                        let smoothZoomFactor = (device.videoZoomFactor + newScaleFactor) / 2.0
+                        self.parent.cameraVM.setZoom(scale: smoothZoomFactor)
+                    default:
+                        break
+                    }
+                }
+        
         @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
             let location = gesture.location(in: gesture.view)
             let frameSize = gesture.view?.frame.size ?? CGSize.zero
@@ -93,7 +115,6 @@ struct CameraPreview: UIViewControllerRepresentable {
         let previewHeight = previewWidth * 4 / 3
         cameraVM.preview.frame = CGRect(x: 0, y: (frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
         cameraVM.preview.connection?.videoRotationAngle = UIDevice.current.orientation.videoRotationAngle
-
     }
 
 }
