@@ -155,13 +155,32 @@ class CameraViewModel: NSObject, ObservableObject {
         return (session.inputs.first as? AVCaptureDeviceInput)?.device
     }
     
+//    private func frontCameraDevice() -> AVCaptureDevice? {
+//        return AVCaptureDevice.devices().first { $0.position == .front }
+//    }
+//    
+//    private func backCameraDevice() -> AVCaptureDevice? {
+//        return AVCaptureDevice.devices().first { $0.position == .back }
+//    }
+    
     private func frontCameraDevice() -> AVCaptureDevice? {
-        return AVCaptureDevice.devices().first { $0.position == .front }
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera],
+            mediaType: .video,
+            position: .front
+        )
+        return discoverySession.devices.first
+    }
+
+    private func backCameraDevice() -> AVCaptureDevice? {
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera],
+            mediaType: .video,
+            position: .back
+        )
+        return discoverySession.devices.first
     }
     
-    private func backCameraDevice() -> AVCaptureDevice? {
-        return AVCaptureDevice.devices().first { $0.position == .back }
-    }
     func setZoom(scale: CGFloat) {
             guard let device = getCurrentCameraDevice() else { return }
             do {
