@@ -11,7 +11,8 @@ import Vision
 struct CameraView: View {
     @Environment(\.verticalSizeClass) var vertiSizeClass
     
-    @StateObject  var VM = CameraViewModel()
+    @StateObject var VM = CameraViewModel()
+    @StateObject private var photoLibraryViewModel = PhotoLibraryViewModel()
     
     var template: Template?
     
@@ -21,6 +22,8 @@ struct CameraView: View {
     @State var showFocusIndicator = false
     @State var countdown: Int? = nil
     @State var imageData: Data?
+    @State var showRecentImage = false
+    @State var selectedPhotoIndex = 0
     
     let controlButtonWidth: CGFloat = 120
     let controlFrameHeight: CGFloat = 180
@@ -49,8 +52,6 @@ struct CameraView: View {
                                                 FaceDetectionOverlayView(faceObservation: face, screenSize: geo.size, path: template!.pathLogic)
                                             }
                                             
-
-                                            
                                             SillhouteView(template: template!, cameraVM: VM)
                                                 .allowsHitTesting(false)
                                         }
@@ -60,7 +61,6 @@ struct CameraView: View {
                                 }
                             )
                     }
-                    
                     
                     if isLandscape {
                         verticalControlBar.frame(width: controlFrameHeight)
@@ -80,16 +80,17 @@ struct CameraView: View {
                     .foregroundColor(.white)
                 
             }
-        }        
+        }
         .onAppear {
             VM.onCountdownUpdate = { value in
                 withAnimation {
                     self.countdown = value
-            
                 }
             }
         }
-        
+        .sheet(isPresented: $showRecentImage) {
+            PhotoDetailView(selectedPhotoIndex: $selectedPhotoIndex, photos: photoLibraryViewModel.recentPhotos)
+        }
         .sheet(isPresented: $showFullImage) {
             if let imageData = imageData, let image = UIImage(data: imageData) {
                 Image(uiImage: image)
@@ -100,20 +101,12 @@ struct CameraView: View {
         .onReceive(VM.$photoCaptureState) { state in
             if case .finished(let data) = state {
                 self.imageData = data
+                if let image = UIImage(data: data) {
+                    photoLibraryViewModel.recentPhotos.append(image)
+                }
             }
         }
     }
-    
-    //     var cameraPreview: some View {
-    //        GeometryReader { geo in
-    //            CameraPreview(cameraVM: VM, frame: geo.frame(in: .global), focusPoint: $focusPoint, showFocusIndicator: $showFocusIndicator)
-    //                .aspectRatio(3.0 / 4.0, contentMode: .fit)
-    //
-    //            ForEach(VM.detectedFaces, id: \.self) { face in
-    //                FaceDetectionOverlayView(faceObservation: face, screenSize: geo.size)
-    //            }
-    //        }
-    //    }
     
     var focusIndicator: some View {
         Rectangle()
@@ -128,9 +121,9 @@ struct CameraView: View {
             }
     }
     
-     func thumbnailPreview(image: UIImage) -> some View {
+    func thumbnailPreview(image: UIImage) -> some View {
         Button(action: {
-            showFullImage.toggle()
+            showRecentImage.toggle()
         }) {
             Image(uiImage: image)
                 .resizable()
@@ -146,10 +139,23 @@ struct CameraView: View {
     }
 }
 
-
-
-
-
+struct PhotoDetailView: View {
+    @Binding var selectedPhotoIndex: Int
+    var photos: [UIImage]
+    
+    var body: some View {
+        TabView(selection: $selectedPhotoIndex) {
+            ForEach(photos.indices, id: \.self) { index in
+                Image(uiImage: photos[index])
+                    .resizable()
+                    .scaledToFit()
+                    .tag(index)
+            }
+        }
+        .tabViewStyle(PageTabViewStyle())
+        .background(Color.black.edgesIgnoringSafeArea(.all))
+    }
+}
 
 #Preview {
     CameraView(template: TemplateData().groupOf3[0])
