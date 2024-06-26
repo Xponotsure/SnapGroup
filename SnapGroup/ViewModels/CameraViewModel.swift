@@ -370,6 +370,45 @@ extension CameraViewModel: AVCaptureVideoDataOutputSampleBufferDelegate {
         processSampleBuffer(sampleBuffer, screenSize: screenSize)
     }
     
-    
 }
+  
+class PhotoLibraryViewModel: NSObject, ObservableObject, PHPhotoLibraryChangeObserver {
+    @Published var recentPhotos: [UIImage] = []
+    
+    override init() {
+        super.init()
+        PHPhotoLibrary.shared().register(self)
+    }
+    
+    deinit {
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
+    }
+    
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        guard let changes = changeInstance.changeDetails(for: PHAsset.fetchAssets(with: .image, options: nil)) else {
+            return
+        }
+        
+        let fetchResult = changes.fetchResultAfterChanges
+        var newPhotos: [UIImage] = []
+        let imageManager = PHImageManager.default()
+        let requestOptions = PHImageRequestOptions()
+        requestOptions.isSynchronous = true
+        
+        fetchResult.enumerateObjects { (asset, index, stop) in
+            let targetSize = CGSize(width: 200, height: 200)
+            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: requestOptions) { (image, info) in
+                if let image = image {
+                    newPhotos.append(image)
+                }
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.recentPhotos = newPhotos
+        }
+    }
+}
+    
+
 
