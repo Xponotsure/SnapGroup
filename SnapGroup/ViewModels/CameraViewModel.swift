@@ -4,26 +4,28 @@
 //
 //  Created by Channy Lim on 17/06/24.
 //
-
 import Foundation
 import AVFoundation
 import UIKit
 import SwiftUI
 import Photos
 
-@Observable
-class CameraViewModel: NSObject {
+class CameraViewModel: NSObject, ObservableObject {
     enum PhotoCaptureState {
         case notStarted
         case processing
-        case finished (Data)
+        case finished(Data)
     }
     
+    @Published var timeSet: Int = 0
+    @Published var onCountdownUpdate: ((Int?) -> Void)?
     var session = AVCaptureSession()
     var preview = AVCaptureVideoPreviewLayer()
     var output = AVCapturePhotoOutput()
-    var timeSet = 0
-    var isCountingDown = false
+    @Published var isCountingDown = false
+    
+    @Published var photoCaptureState: PhotoCaptureState = .notStarted
+    @Published var isUsingFrontCamera = false
     
     var photoData: Data? {
         if case .finished(let data) = photoCaptureState {
@@ -32,11 +34,7 @@ class CameraViewModel: NSObject {
         return nil
     }
     
-    var hasPhoto: Bool {photoData != nil}
-
-    private (set) var photoCaptureState: PhotoCaptureState = .notStarted
-    
-    var onCountdownUpdate: ((Int?) -> Void)?
+    var hasPhoto: Bool { photoData != nil }
     
     private var countdownWorkItem: DispatchWorkItem?
     
@@ -44,63 +42,71 @@ class CameraViewModel: NSObject {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { didAllowAccess in
-                self.setup()
+                if didAllowAccess {
+                    self.setup()
+                }
             }
         case .authorized:
             setup()
         default:
-            print ("other status")
+            print("Camera access denied")
         }
     }
     
     private func setup() {
         session.beginConfiguration()
-        session.sessionPreset = AVCaptureSession.Preset.photo
+        session.sessionPreset = .photo
         
         do {
-            guard let device = AVCaptureDevice.default(for: .video) else { return }
-            
+            let device = isUsingFrontCamera ? frontCameraDevice() : backCameraDevice()
+            guard let device = device else { return }
             let input = try AVCaptureDeviceInput(device: device)
             
-            guard session.canAddInput(input) else { return }
-            session.addInput(input)
+            if session.canAddInput(input) {
+                session.addInput(input)
+            }
             
-            guard session.canAddOutput(output) else { return }
-            session.addOutput(output)
+            if session.canAddOutput(output) {
+                session.addOutput(output)
+            }
+            
+            preview.videoGravity = .resizeAspectFill
+            preview.session = session
             
             session.commitConfiguration()
-            
-            Task(priority: .background) {
-                self.session.startRunning()
-                await MainActor.run {
-                    self.preview.connection?.videoRotationAngle = UIDevice.current.orientation.videoRotationAngle
-                }
-            }
+            session.startRunning()
         } catch {
-            print(error.localizedDescription)
+            print("Failed to set up camera: \(error.localizedDescription)")
         }
     }
     
     func takePhoto() {
-        let capturePhoto = {
-            guard case .notStarted = self.photoCaptureState else { return }
-            self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
-            withAnimation {
-                self.photoCaptureState = .processing
-            }
-        }
+         let capturePhoto = {
+             guard case .notStarted = self.photoCaptureState else { return }
+             self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+             withAnimation {
+                 self.photoCaptureState = .processing
+             }
+         }
 
-        if timeSet != 0 {
-            self.isCountingDown = true
-            startCountdown(duration: timeSet) {
-                if self.isCountingDown { // Ensure countdown completed without cancellation
-                    capturePhoto()
-                    self.isCountingDown = false
-                }
-            }
-        } else {
-            capturePhoto()
-        }
+         if timeSet != 0 {
+             self.isCountingDown = true
+             startCountdown(duration: timeSet) {
+                 if self.isCountingDown { // Ensure countdown completed without cancellation
+                     capturePhoto()
+                     self.isCountingDown = false
+                 }
+             }
+         } else {
+             capturePhoto()
+         }
+     }
+    
+    func switchCamera() {
+        isUsingFrontCamera.toggle()
+        session.stopRunning()
+        session.inputs.forEach { session.removeInput($0) }
+        setup()
     }
     
     private func startCountdown(duration: Int, completion: @escaping () -> Void) {
@@ -153,10 +159,9 @@ class CameraViewModel: NSObject {
                 self.photoCaptureState = .notStarted
             }
         }
-
     }
-
-    var isFlashOn = false
+    
+    @Published var isFlashOn = false
 
     func toggleFlash() {
         guard let device = getCurrentCameraDevice() else { return }
@@ -198,57 +203,83 @@ class CameraViewModel: NSObject {
     func getCurrentCameraDevice() -> AVCaptureDevice? {
         return (session.inputs.first as? AVCaptureDeviceInput)?.device
     }
+    
+//    private func frontCameraDevice() -> AVCaptureDevice? {
+//        return AVCaptureDevice.devices().first { $0.position == .front }
+//    }
+//    
+//    private func backCameraDevice() -> AVCaptureDevice? {
+//        return AVCaptureDevice.devices().first { $0.position == .back }
+//    }
+    
+    private func frontCameraDevice() -> AVCaptureDevice? {
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera],
+            mediaType: .video,
+            position: .front
+        )
+        return discoverySession.devices.first
+    }
+
+    private func backCameraDevice() -> AVCaptureDevice? {
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera],
+            mediaType: .video,
+            position: .back
+        )
+        return discoverySession.devices.first
+    }
+    
+    func setZoom(scale: CGFloat) {
+            guard let device = getCurrentCameraDevice() else { return }
+            do {
+                try device.lockForConfiguration()
+                device.videoZoomFactor = max(1.0, min(device.activeFormat.videoMaxZoomFactor, scale))
+                device.unlockForConfiguration()
+            } catch {
+                print("Zoom configuration error: \(error.localizedDescription)")
+            }
+        }
+    
+    
+    
+    private func saveImageToGallery(_ image: UIImage) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        }, completionHandler: { success, error in
+            if success {
+                print("Photo saved to gallery")
+            } else if let error = error {
+                print("Error saving photo: \(error.localizedDescription)")
+            }
+        })
+    }
 }
 
 extension CameraViewModel: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        if let error {
-            print(error.localizedDescription)
+        if let error = error {
+            print("Error capturing photo: \(error.localizedDescription)")
+            return
         }
         
-        guard let imageData = photo.fileDataRepresentation() else { return }
-        
-        guard let provider = CGDataProvider(data: imageData as CFData) else { return }
-        guard let cgImage = CGImage (jpegDataProviderSource: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent) else { return }
-        guard let imageData = photo.fileDataRepresentation() else { return }
-        let capturedImage = UIImage(data: imageData)
-        if let image = capturedImage {
-            saveImageToGallery(image)
+        guard let imageData = photo.fileDataRepresentation() else {
+            print("Failed to get image data")
+            return
         }
-        Task(priority: .background) {
-            self.session.stopRunning()
-            await MainActor.run {
-                
-                let image = UIImage (cgImage: cgImage, scale: 1, orientation: UIDevice.current.orientation.uiImageOrientation)
-                let imageData = image.pngData()
-                
-                withAnimation {
-                    if let imageData {
-                        self.photoCaptureState = .finished(imageData)
-                    } else {
-                        print("error occurred")
-                    }
-                }
+        
+        guard let image = UIImage(data: imageData) else {
+            print("Failed to create UIImage from image data")
+            return
+        }
+        
+        saveImageToGallery(image)
+        
+        DispatchQueue.main.async {
+            withAnimation {
+                self.photoCaptureState = .finished(imageData)
             }
-            
+            self.retakePhoto()
         }
-    }
-    func saveImageToGallery(_ image: UIImage) {
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.creationRequestForAsset(from: image)
-        })                   // allert kalau sudah disimpan
-//        { success, error in
-//            if success {
-//                DispatchQueue.main.async {
-//                    self.alertMessage = "Your photo has been saved to the gallery."
-//                    self.showAlert = true
-//                }
-//            } else if let error = error {
-//                DispatchQueue.main.async {
-//                    self.alertMessage = "Error saving photo: \(error.localizedDescription)"
-//                    self.showAlert = true
-//                }
-//            }
-//        }
     }
 }
