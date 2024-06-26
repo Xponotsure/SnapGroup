@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A07C5E82C2A9B2800AEDE72 /* CameraView+TopControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A07C5E72C2A9B2800AEDE72 /* CameraView+TopControlBar.swift */; };
 		0A93DAAD2C22C7B500EA0D63 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */; };
 		0A93DAB02C22C80B00EA0D63 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */; };
 		0A93DAB22C22C82600EA0D63 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A07C5E72C2A9B2800AEDE72 /* CameraView+TopControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraView+TopControlBar.swift"; sourceTree = "<group>"; };
 		0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */,
 				0A93DAB32C22C83800EA0D63 /* CameraView+Buttons.swift */,
 				0A93DAB52C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift */,
+				0A07C5E72C2A9B2800AEDE72 /* CameraView+TopControlBar.swift */,
 				0A93DAB72C22C85800EA0D63 /* CameraView+VerticalControlBar.swift */,
 			);
 			path = Camera;
@@ -311,6 +314,7 @@
 				0A93DABB2C22C8A800EA0D63 /* ControlButtonView.swift in Sources */,
 				D93C264D2C22BBC700A15FEF /* ContentView.swift in Sources */,
 				0A93DABD2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift in Sources */,
+				0A07C5E82C2A9B2800AEDE72 /* CameraView+TopControlBar.swift in Sources */,
 				0A93DABF2C22C92500EA0D63 /* View+.swift in Sources */,
 				D93C264B2C22BBC700A15FEF /* SnapGroupApp.swift in Sources */,
 				0A93DAAD2C22C7B500EA0D63 /* CameraViewModel.swift in Sources */,
@@ -466,7 +470,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = 8FL882H4L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -496,7 +500,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = 8FL882H4L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -528,7 +532,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = 8FL882H4L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -564,7 +568,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = 8FL882H4L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
