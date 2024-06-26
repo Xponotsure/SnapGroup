@@ -13,10 +13,10 @@ struct TemplateData{
             previewImage: "GroupOf3/Preview/0p",
             sillhouteImage: "GroupOf3/Sillhoute/0s",
             pathLogic: [
-                CGRect(x: 70, y: 190, width: 100, height: 100),
-                CGRect(x: 215, y: 185, width: 100, height: 100),
-                CGRect(x: 130, y: 320, width: 120, height: 130)
-
+                CGRect(x: 60, y: 85, width: 100, height: 100),
+                CGRect(x: 200, y: 75, width: 100, height: 100),
+                CGRect(x: 125, y: 195, width: 120, height: 130)
+                
             ]
         )
     ]
@@ -34,7 +34,7 @@ struct TemplateData{
     ]
     
     var groupOf7: [Template] = [
-       
+        
     ]
     
     var groupOf8: [Template] = [
@@ -44,35 +44,43 @@ struct TemplateData{
 
 struct SillhouteView: View {
     var template: Template
+    @ObservedObject var cameraVM: CameraViewModel
+    
+    
     
     var body: some View {
         ZStack{
-            GeometryReader { geometry in
-                ZStack {
+            
+            Image(template.sillhouteImage)
+                .resizable()
+                .scaledToFit()
+                .opacity(0.1)
+                .overlay{
                     
-                    // MARK: Untuk check path dengan template
-                    // kalau udah Image di comment lagi
-                    Image(template.previewImage)
-                        .resizable()
-                        .scaledToFit()
-                    
-                    
-                    ForEach(template.pathLogic, id: \.self) { rect in
-//                        let isIntersecting = cameraService.detectedFaces.contains { face in
-//                            let faceRect = cameraService.convertBoundingBox(face.boundingBox, screenSize: geometry.size)
-//                            return rect.intersects(faceRect)
-//                        }
-                        Rectangle()
-                            .path(in: rect)
-//                            .stroke(isIntersecting ? Color.green : Color.blue, lineWidth: 5)
-                            .stroke(Color.blue, lineWidth: 5)
+                    GeometryReader{ geo in
+                        ForEach(template.pathLogic, id: \.self) { rect in
+                            let isIntersecting = cameraVM.detectedFaces.contains { face in
+                                let faceRect = cameraVM.convertBoundingBox(face.boundingBox, screenSize: geo.size)
+                                return rect.intersects(faceRect)
+                            }
+                            Rectangle()
+                                .path(in: rect)
+                            
+                            
+                            
+                                .stroke(Color.clear, lineWidth: 5)
+
+//                                .stroke(isIntersecting ? Color.green : Color.blue, lineWidth: 2)
+                        }
+                        
                     }
                 }
-            }
         }
     }
 }
 
+
+
 #Preview {
-    SillhouteView(template: TemplateData().groupOf3[0])
+    SillhouteView(template: TemplateData().groupOf3[0], cameraVM: CameraViewModel())
 }

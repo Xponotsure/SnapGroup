@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 struct CameraPreview: UIViewControllerRepresentable {
     @ObservedObject var cameraVM: CameraViewModel
-    let frame: CGRect
+//    let frame: CGRect
     
     @Binding var focusPoint: CGPoint
     @Binding var showFocusIndicator: Bool
@@ -60,60 +60,38 @@ struct CameraPreview: UIViewControllerRepresentable {
         Coordinator(parent: self)
     }
     
-//    func makeUIView(context: Context) -> UIView {
-//        let view = UIView(frame: frame)
-//        
-//        let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTapGesture(_:)))
-//        view.addGestureRecognizer(tapGesture)
-//        
-//        cameraVM.preview = AVCaptureVideoPreviewLayer(session: cameraVM.session)
-//        cameraVM.preview.frame = frame
-//        cameraVM.preview.videoGravity = .resizeAspectFill
-//        view.layer.addSublayer(cameraVM.preview)
-//        
-//        let previewWidth = frame.width
-//        let previewHeight = previewWidth * 4 / 3
-//        cameraVM.preview.frame = CGRect(x: 0, y: (frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
-//
-//        return view
-//    }
     
     func makeUIViewController(context: Context) -> UIViewController {
         let viewController = UIViewController()
         cameraVM.setupPreviewLayer(in: viewController.view)
         
+        let pinchGesture = UIPinchGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handlePinch(_:)))
+        viewController.view.addGestureRecognizer(pinchGesture)
+
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTapGesture(_:)))
         viewController.view.addGestureRecognizer(tapGesture)
         
+        
+        
         cameraVM.preview = AVCaptureVideoPreviewLayer(session: cameraVM.session)
-        cameraVM.preview.frame = frame
+        cameraVM.preview.frame = viewController.view.bounds
         cameraVM.preview.videoGravity = .resizeAspectFill
         viewController.view.layer.addSublayer(cameraVM.preview)
         
-        let previewWidth = frame.width
+        let previewWidth = viewController.view.frame.width
         let previewHeight = previewWidth * 4 / 3
-        cameraVM.preview.frame = CGRect(x: 0, y: (frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
+        cameraVM.preview.frame = CGRect(x: 0, y: (viewController.view.frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
 
 
         
         return viewController
     }
 
-    
-//    func updateUIView(_ uiView: UIView, context: Context) {
-//        let previewWidth = frame.width
-//        let previewHeight = previewWidth * 4 / 3
-//        cameraVM.preview.frame = CGRect(x: 0, y: (frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
-//        cameraVM.preview.connection?.videoRotationAngle = UIDevice.current.orientation.videoRotationAngle
-//    }
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-//        if let previewLayer = cameraVM.preview {
-//            previewLayer.frame = uiViewController.view.bounds
-//        }
         
-        let previewWidth = frame.width
+        let previewWidth = uiViewController.view.frame.width
         let previewHeight = previewWidth * 4 / 3
-        cameraVM.preview.frame = CGRect(x: 0, y: (frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
+        cameraVM.preview.frame = CGRect(x: 0, y: (uiViewController.view.frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
         cameraVM.preview.connection?.videoRotationAngle = UIDevice.current.orientation.videoRotationAngle
     }
 

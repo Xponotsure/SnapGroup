@@ -21,7 +21,7 @@ struct CameraView: View {
     @State var showFocusIndicator = false
     @State var countdown: Int? = nil
     @State var imageData: Data?
-
+    
     let controlButtonWidth: CGFloat = 120
     let controlFrameHeight: CGFloat = 180
     
@@ -31,18 +31,33 @@ struct CameraView: View {
         ZStack {
             Color.black.ignoresSafeArea()
             
-            
             VStack {
                 HStack {
-                    ZStack{
-                        cameraPreview
-                        if template != nil{
-                            Image(template!.sillhouteImage)
-                                .resizable()
-                                .scaledToFit()
-                        }
+                    ZStack {
+                        // CameraPreview
+                        CameraPreview(cameraVM: VM, focusPoint: $focusPoint, showFocusIndicator: $showFocusIndicator)
+                            .aspectRatio(3.0 / 4.0, contentMode: .fit)
+                            .overlay(
+                                GeometryReader { geo in
+                                    ZStack {
+                                        if template != nil {
+                                            
+                                            ForEach(VM.detectedFaces, id: \.self) { face in
+                                                FaceDetectionOverlayView(faceObservation: face, screenSize: geo.size, path: template!.pathLogic)
+                                            }
+                                            
 
+                                            
+                                            SillhouteView(template: template!, cameraVM: VM)
+                                                .allowsHitTesting(false)
+                                        }
+                                    }
+                                    .frame(width: geo.size.width, height: geo.size.height)
+                                    .position(x: geo.size.width / 2, y: geo.size.height / 2)
+                                }
+                            )
                     }
+                    
                     
                     if isLandscape {
                         verticalControlBar.frame(width: controlFrameHeight)
@@ -62,12 +77,12 @@ struct CameraView: View {
                     .foregroundColor(.white)
                 
             }
-        }        
+        }
         .onAppear {
             VM.onCountdownUpdate = { value in
                 withAnimation {
                     self.countdown = value
-            
+                    
                 }
             }
         }
@@ -79,7 +94,7 @@ struct CameraView: View {
                     .scaledToFit()
             }
         }
-
+        
         .onReceive(VM.$photoCaptureState) { state in
             if case .finished(let data) = state {
                 self.imageData = data
@@ -87,18 +102,18 @@ struct CameraView: View {
         }
     }
     
-     var cameraPreview: some View {
-        GeometryReader { geo in
-            CameraPreview(cameraVM: VM, frame: geo.frame(in: .global), focusPoint: $focusPoint, showFocusIndicator: $showFocusIndicator)
-                .aspectRatio(3.0 / 4.0, contentMode: .fit)
-            
-            ForEach(VM.detectedFaces, id: \.self) { face in
-                FaceDetectionOverlayView(faceObservation: face, screenSize: geo.size)
-            }
-        }
-    }
+    //     var cameraPreview: some View {
+    //        GeometryReader { geo in
+    //            CameraPreview(cameraVM: VM, frame: geo.frame(in: .global), focusPoint: $focusPoint, showFocusIndicator: $showFocusIndicator)
+    //                .aspectRatio(3.0 / 4.0, contentMode: .fit)
+    //
+    //            ForEach(VM.detectedFaces, id: \.self) { face in
+    //                FaceDetectionOverlayView(faceObservation: face, screenSize: geo.size)
+    //            }
+    //        }
+    //    }
     
-     var focusIndicator: some View {
+    var focusIndicator: some View {
         Rectangle()
             .stroke(Color.yellow, lineWidth: 2)
             .frame(width: 80, height: 80)
@@ -111,7 +126,7 @@ struct CameraView: View {
             }
     }
     
-     func thumbnailPreview(image: UIImage) -> some View {
+    func thumbnailPreview(image: UIImage) -> some View {
         Button(action: {
             showFullImage.toggle()
         }) {

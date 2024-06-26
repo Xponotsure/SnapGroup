@@ -31,6 +31,8 @@ class CameraViewModel: NSObject, ObservableObject {
     @Published var isUsingFrontCamera = false
     @Published var detectedFaces: [VNFaceObservation] = []
     
+//    @Published var path: [CGRect] = []
+    
     var photoData: Data? {
         if case .finished(let data) = photoCaptureState {
             return data
@@ -229,6 +231,15 @@ class CameraViewModel: NSObject, ObservableObject {
         }
     }
     
+    func convertBoundingBox(_ boundingBox: CGRect, screenSize: CGSize) -> CGRect {
+        return CGRect(
+            x: boundingBox.minX * screenSize.width,
+            y: (1 - boundingBox.maxY) * screenSize.height,
+            width: boundingBox.width * screenSize.width,
+            height: boundingBox.height * screenSize.height
+        )
+    }
+    
     func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, screenSize: CGSize) {
            guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
            let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
@@ -276,7 +287,6 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
 
 extension CameraViewModel: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-//        guard let previewLayer = preview else { return }
         let screenSize = preview.frame.size
         processSampleBuffer(sampleBuffer, screenSize: screenSize)
     }
