@@ -168,17 +168,12 @@ class CameraViewModel: NSObject, ObservableObject {
         do {
             if device.hasTorch {
                 try device.lockForConfiguration()
-                if isFlashOn {
-                    device.torchMode = .off
-                } else {
-                    device.torchMode = .on
-                }
+                device.torchMode = isFlashOn ? .off : .on
                 isFlashOn.toggle()
                 device.unlockForConfiguration()
             }
         } catch {
-            // Handle errors (disable flash button, log error, etc.)
-            print("Device torch Flash Error: \(error.localizedDescription)")
+            print("Device torch flash error: \(error.localizedDescription)")
         }
     }
     
