@@ -27,11 +27,14 @@ struct CameraView: View {
     
     var isLandscape: Bool { vertiSizeClass == .compact }
     
+    @State internal var isPhotoCaptureButtonDisabled = false
+    
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
-            
             VStack {
+                topControlBar
+                
                 HStack {
                     ZStack {
                         // CameraPreview
@@ -77,12 +80,12 @@ struct CameraView: View {
                     .foregroundColor(.white)
                 
             }
-        }
+        }        
         .onAppear {
             VM.onCountdownUpdate = { value in
                 withAnimation {
                     self.countdown = value
-                    
+            
                 }
             }
         }
@@ -94,7 +97,6 @@ struct CameraView: View {
                     .scaledToFit()
             }
         }
-        
         .onReceive(VM.$photoCaptureState) { state in
             if case .finished(let data) = state {
                 self.imageData = data
@@ -126,7 +128,7 @@ struct CameraView: View {
             }
     }
     
-    func thumbnailPreview(image: UIImage) -> some View {
+     func thumbnailPreview(image: UIImage) -> some View {
         Button(action: {
             showFullImage.toggle()
         }) {

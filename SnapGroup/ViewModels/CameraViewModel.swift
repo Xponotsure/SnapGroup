@@ -32,6 +32,9 @@ class CameraViewModel: NSObject, ObservableObject {
     @Published var detectedFaces: [VNFaceObservation] = []
     
 //    @Published var path: [CGRect] = []
+
+    @Published var isCountingDown = false
+    
     
     var photoData: Data? {
         if case .finished(let data) = photoCaptureState {
@@ -41,6 +44,8 @@ class CameraViewModel: NSObject, ObservableObject {
     }
     
     var hasPhoto: Bool { photoData != nil }
+    
+    private var countdownWorkItem: DispatchWorkItem?
     
     
     override init() {
@@ -132,17 +137,87 @@ class CameraViewModel: NSObject, ObservableObject {
 
     
     func takePhoto() {
-        guard case .notStarted = photoCaptureState else { return }
+         let capturePhoto = {
+             guard case .notStarted = self.photoCaptureState else { return }
+             self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+             withAnimation {
+                 self.photoCaptureState = .processing
+             }
+         }
+
+         if timeSet != 0 {
+             self.isCountingDown = true
+             startCountdown(duration: timeSet) {
+                 if self.isCountingDown { // Ensure countdown completed without cancellation
+                     capturePhoto()
+                     self.isCountingDown = false
+                 }
+             }
+         } else {
+             capturePhoto()
+         }
+     }
+    
+    func switchCamera() {
+        isUsingFrontCamera.toggle()
+        session.stopRunning()
+        session.inputs.forEach { session.removeInput($0) }
+        setup()
+    }
+    
+    private func startCountdown(duration: Int, completion: @escaping () -> Void) {
+        // Cancel any existing countdown work item
+        countdownWorkItem?.cancel()
         
-        let settings = AVCapturePhotoSettings()
-        photoOutput.capturePhoto(with: settings, delegate: self)
+        countdownWorkItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            
+            for i in (1...duration).reversed() {
+                // Check if the countdown has been cancelled
+                if self.countdownWorkItem?.isCancelled ?? true {
+                    break
+                }
+                
+                DispatchQueue.main.async {
+                    self.onCountdownUpdate?(i)
+                }
+                
+                // Wait for 1 second before updating countdown (adjust as needed)
+                Thread.sleep(forTimeInterval: 1.0)
+            }
+            
+            DispatchQueue.main.async {
+                self.onCountdownUpdate?(nil)
+                completion()
+            }
+        }
         
+        // Start the countdown work item
+        DispatchQueue.global().async(execute: countdownWorkItem!)
+    }
+    
+    func retakePhoto() {
+        Task(priority: .background) {
+            self.session.startRunning()
+            await MainActor.run {
+                self.photoCaptureState = .notStarted
+            }
+        }
+    }
+
+    func cancelCapturePhoto() {
+        self.isCountingDown = false
+        countdownWorkItem?.cancel()
+        countdownWorkItem = nil
+        self.onCountdownUpdate?(nil)
         withAnimation {
-            photoCaptureState = .processing
+            if case .processing = self.photoCaptureState {
+                self.photoCaptureState = .notStarted
+            }
         }
     }
     
-    var isFlashOn = false
+    @Published var isFlashOn = false
 
     func toggleFlash() {
         guard let device = getCurrentCameraDevice() else { return }
@@ -180,14 +255,32 @@ class CameraViewModel: NSObject, ObservableObject {
         return (session.inputs.first as? AVCaptureDeviceInput)?.device
     }
     
+//    private func frontCameraDevice() -> AVCaptureDevice? {
+//        return AVCaptureDevice.devices().first { $0.position == .front }
+//    }
+//    
+//    private func backCameraDevice() -> AVCaptureDevice? {
+//        return AVCaptureDevice.devices().first { $0.position == .back }
+//    }
+    
     private func frontCameraDevice() -> AVCaptureDevice? {
-        return AVCaptureDevice.devices().first { $0.position == .front }
-        
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera],
+            mediaType: .video,
+            position: .front
+        )
+        return discoverySession.devices.first
+    }
+
+    private func backCameraDevice() -> AVCaptureDevice? {
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera],
+            mediaType: .video,
+            position: .back
+        )
+        return discoverySession.devices.first
     }
     
-    private func backCameraDevice() -> AVCaptureDevice? {
-        return AVCaptureDevice.devices().first { $0.position == .back }
-    }
     func setZoom(scale: CGFloat) {
             guard let device = getCurrentCameraDevice() else { return }
             do {
@@ -275,14 +368,6 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
             self.retakePhoto()
         }
     }
-    
-    func retakePhoto() {
-        withAnimation {
-            photoCaptureState = .notStarted
-        }
-    }
-    
-    
 }
 
 extension CameraViewModel: AVCaptureVideoDataOutputSampleBufferDelegate {
