@@ -6,34 +6,50 @@
 //
 
 import SwiftUI
+
 extension CameraView {
     @ViewBuilder var horizontalControlBar: some View {
+        if (VM.hasPhoto) {
+            horizontalControlBarPostPhoto
+        } else {
+            horizontalControlBarPrePhoto
+        }
+    }
+    
+    var horizontalControlBarPrePhoto: some View {
         VStack {
             HStack {
                 flashToggleButton
                 Spacer()
                 timerButton
             }
+            .padding(.top, 9)
+            .padding(.bottom, 15)
             .padding(.horizontal, 20)
             HStack {
-                if let imageData = imageData, let image = UIImage(data: imageData) {
-                    thumbnailPreview(image: image)
-                        .padding(.leading, 20)
+                Spacer()
+                    .frame(width: controlButtonWidth)
+                Spacer()
+                if(VM.isCountingDown == true) {
+                    cancelButton
                 } else {
-                    Rectangle()
-                        .fill(Color.gray)
-                        .frame(width: 50, height: 50)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding(.leading, 20)
+                    photoCaptureButton
                 }
                 Spacer()
-                photoCaptureButton
                 Spacer()
-                switchCameraButton
-                    .padding(.trailing, 20)
-                // cancelButton.frame(width: controlButtonWidth)
-                
+                    .frame(width: controlButtonWidth)
             }
+        }
+        .frame(height: 168.75)
+    }
+    
+    var horizontalControlBarPostPhoto: some View {
+        HStack {
+            retakeButton
+                .frame(width: controlButtonWidth)
+            Spacer()
+            usePhotoButton
+                .frame(width: controlButtonWidth)
         }
     }
 }

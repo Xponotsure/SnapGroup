@@ -8,13 +8,44 @@
 import SwiftUI
 
 extension CameraView {
+    var usePhotoButton: some View {
+        ControlButtonView(label: "Use Photo") {
+            imageData = VM.photoData
+//            showCamera = false
+        }
+    }
+    
+    var retakeButton: some View {
+        ControlButtonView(label: "Retake") {
+            VM.retakePhoto()
+        }
+    }
+    
     var cancelButton: some View {
-        ControlButtonView(label: "Cancel") {}
+        Button {
+            VM.cancelCapturePhoto()
+            
+            isPhotoCaptureButtonDisabled = true
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isPhotoCaptureButtonDisabled = false
+            }
+        } label: {
+            ZStack {
+                Rectangle()
+                    .fill(.white)
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(6)
+                Circle()
+                    .stroke(.white, lineWidth: 3)
+                    .frame(width: 75)
+            }
+        }
     }
     
     var photoCaptureButton: some View {
         Button {
-            VM.startTimer()
+            VM.takePhoto()
         } label: {
             ZStack {
                 Circle()
@@ -25,6 +56,7 @@ extension CameraView {
                     .frame(width: 75)
             }
         }
+        .disabled(isPhotoCaptureButtonDisabled)
     }
     
     var flashToggleButton: some View {
@@ -32,22 +64,6 @@ extension CameraView {
             VM.toggleFlash()
         }) {
             Image(systemName: VM.isFlashOn ? "bolt.circle" : "bolt.slash.circle")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 29, height: 29)
-                .foregroundColor(.white)
-                .frame(width: 39, height: 39)
-                .padding(5)
-                .background(Color(red: 50/255, green: 50/255, blue: 50/255))
-                .clipShape(Circle())
-        }
-    }
-    
-    var switchCameraButton: some View {
-        Button(action: {
-            VM.switchCamera()
-        }) {
-            Image(systemName: "camera.rotate")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 29, height: 29)
@@ -73,7 +89,7 @@ extension CameraView {
                     .padding(5)
                     .background(Color(red: 50/255, green: 50/255, blue: 50/255))
                     .clipShape(Circle())
-                    .zIndex(1.0)
+                    .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
                 
                 if openTimer {
                     HStack {
@@ -101,7 +117,6 @@ extension CameraView {
         }
     }
 }
-
 
 #Preview {
     CameraView()

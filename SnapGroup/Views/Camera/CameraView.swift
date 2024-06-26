@@ -24,10 +24,14 @@ struct CameraView: View {
     
     var isLandscape: Bool { vertiSizeClass == .compact }
     
+    @State internal var isPhotoCaptureButtonDisabled = false
+    
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
             VStack {
+                topControlBar
+                
                 HStack {
                     cameraPreview
                     if isLandscape {
