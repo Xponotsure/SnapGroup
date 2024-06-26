@@ -13,11 +13,13 @@ struct CameraView: View {
     
     @StateObject  var VM = CameraViewModel()
     
-    @State  var openTimer = false
-    @State  var showFullImage = false
-    @State  var focusPoint = CGPoint.zero
-    @State  var showFocusIndicator = false
-    @State  var countdown: Int? = nil
+    var template: Template?
+    
+    @State var openTimer = false
+    @State var showFullImage = false
+    @State var focusPoint = CGPoint.zero
+    @State var showFocusIndicator = false
+    @State var countdown: Int? = nil
     @State var imageData: Data?
 
     let controlButtonWidth: CGFloat = 120
@@ -28,9 +30,20 @@ struct CameraView: View {
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
+            
+            
             VStack {
                 HStack {
-                    cameraPreview
+                    ZStack{
+                        cameraPreview
+                        if template != nil{
+                            Image(template!.sillhouteImage)
+                                .resizable()
+                                .scaledToFit()
+                        }
+
+                    }
+                    
                     if isLandscape {
                         verticalControlBar.frame(width: controlFrameHeight)
                     }
@@ -122,5 +135,5 @@ struct CameraView: View {
 
 
 #Preview {
-    CameraView()
+    CameraView(template: TemplateData().groupOf3[0])
 }

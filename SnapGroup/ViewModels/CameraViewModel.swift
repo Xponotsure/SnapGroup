@@ -180,6 +180,7 @@ class CameraViewModel: NSObject, ObservableObject {
     
     private func frontCameraDevice() -> AVCaptureDevice? {
         return AVCaptureDevice.devices().first { $0.position == .front }
+        
     }
     
     private func backCameraDevice() -> AVCaptureDevice? {
