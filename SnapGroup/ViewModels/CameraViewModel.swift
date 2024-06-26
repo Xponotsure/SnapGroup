@@ -139,7 +139,7 @@ class CameraViewModel: NSObject, ObservableObject {
     func takePhoto() {
          let capturePhoto = {
              guard case .notStarted = self.photoCaptureState else { return }
-             self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+             self.photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
              withAnimation {
                  self.photoCaptureState = .processing
              }
@@ -158,12 +158,6 @@ class CameraViewModel: NSObject, ObservableObject {
          }
      }
     
-    func switchCamera() {
-        isUsingFrontCamera.toggle()
-        session.stopRunning()
-        session.inputs.forEach { session.removeInput($0) }
-        setup()
-    }
     
     private func startCountdown(duration: Int, completion: @escaping () -> Void) {
         // Cancel any existing countdown work item
