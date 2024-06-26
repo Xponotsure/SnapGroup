@@ -26,6 +26,12 @@
 		D93C265F2C22BBC800A15FEF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C265E2C22BBC800A15FEF /* ContentView.swift */; };
 		D93C26612C22BBC900A15FEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C26602C22BBC900A15FEF /* Assets.xcassets */; };
 		D93C26642C22BBC900A15FEF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C26632C22BBC900A15FEF /* Preview Assets.xcassets */; };
+		D93C26992C2ACC4300A15FEF /* FaceDetectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C26982C2ACC4300A15FEF /* FaceDetectionOverlayView.swift */; };
+		D93C269B2C2B12C300A15FEF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C269A2C2B12C300A15FEF /* Template.swift */; };
+		D93C26A02C2BBEAD00A15FEF /* SillhouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C269F2C2BBEAD00A15FEF /* SillhouteView.swift */; };
+		D93C26A22C2BBF6700A15FEF /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C26A12C2BBF6700A15FEF /* CGRect+.swift */; };
+		D93C26A42C2BCD4200A15FEF /* TemporarySelectTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C26A32C2BCD4200A15FEF /* TemporarySelectTemplateView.swift */; };
+		D93C26A62C2BCDED00A15FEF /* TemplateGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C26A52C2BCDED00A15FEF /* TemplateGridItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +79,12 @@
 		D93C265E2C22BBC800A15FEF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D93C26602C22BBC900A15FEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D93C26632C22BBC900A15FEF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D93C26982C2ACC4300A15FEF /* FaceDetectionOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionOverlayView.swift; sourceTree = "<group>"; };
+		D93C269A2C2B12C300A15FEF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
+		D93C269F2C2BBEAD00A15FEF /* SillhouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SillhouteView.swift; sourceTree = "<group>"; };
+		D93C26A12C2BBF6700A15FEF /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
+		D93C26A32C2BCD4200A15FEF /* TemporarySelectTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporarySelectTemplateView.swift; sourceTree = "<group>"; };
+		D93C26A52C2BCDED00A15FEF /* TemplateGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateGridItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +177,7 @@
 		D93C26702C2315EE00A15FEF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D93C269A2C2B12C300A15FEF /* Template.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -172,6 +185,7 @@
 		D93C26712C2315F600A15FEF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D93C269E2C2BBE9800A15FEF /* Template */,
 				D93C26722C231E7D00A15FEF /* Camera */,
 			);
 			path = Views;
@@ -195,6 +209,7 @@
 			children = (
 				0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */,
 				0A93DABE2C22C92500EA0D63 /* View+.swift */,
+				D93C26A12C2BBF6700A15FEF /* CGRect+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -203,8 +218,19 @@
 			isa = PBXGroup;
 			children = (
 				0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */,
+				D93C26982C2ACC4300A15FEF /* FaceDetectionOverlayView.swift */,
+				D93C26A52C2BCDED00A15FEF /* TemplateGridItem.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		D93C269E2C2BBE9800A15FEF /* Template */ = {
+			isa = PBXGroup;
+			children = (
+				D93C269F2C2BBEAD00A15FEF /* SillhouteView.swift */,
+				D93C26A32C2BCD4200A15FEF /* TemporarySelectTemplateView.swift */,
+			);
+			path = Template;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,10 +335,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D93C26A02C2BBEAD00A15FEF /* SillhouteView.swift in Sources */,
 				0A93DAB22C22C82600EA0D63 /* CameraPreview.swift in Sources */,
+				D93C26A42C2BCD4200A15FEF /* TemporarySelectTemplateView.swift in Sources */,
 				0A93DAB42C22C83900EA0D63 /* CameraView+Buttons.swift in Sources */,
+				D93C26A62C2BCDED00A15FEF /* TemplateGridItem.swift in Sources */,
+				D93C269B2C2B12C300A15FEF /* Template.swift in Sources */,
 				0A93DABB2C22C8A800EA0D63 /* ControlButtonView.swift in Sources */,
 				D93C264D2C22BBC700A15FEF /* ContentView.swift in Sources */,
+				D93C26992C2ACC4300A15FEF /* FaceDetectionOverlayView.swift in Sources */,
 				0A93DABD2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift in Sources */,
 				0A07C5E82C2A9B2800AEDE72 /* CameraView+TopControlBar.swift in Sources */,
 				0A93DABF2C22C92500EA0D63 /* View+.swift in Sources */,
@@ -321,6 +352,7 @@
 				0A93DAB82C22C85800EA0D63 /* CameraView+VerticalControlBar.swift in Sources */,
 				0A93DAB62C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift in Sources */,
 				0A93DAB02C22C80B00EA0D63 /* CameraView.swift in Sources */,
+				D93C26A22C2BBF6700A15FEF /* CGRect+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,7 +502,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 8FL882H4L2;
+				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -500,7 +532,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 8FL882H4L2;
+				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -532,7 +564,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = 8FL882H4L2;
+				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -568,7 +600,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = 8FL882H4L2;
+				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
