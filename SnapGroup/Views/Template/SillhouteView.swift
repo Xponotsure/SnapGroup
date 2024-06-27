@@ -54,9 +54,7 @@ struct SillhouteView: View {
             Image(template.sillhouteImage)
                 .resizable()
                 .scaledToFit()
-                .opacity(0.1)
                 .overlay{
-                    
                     GeometryReader{ geo in
                         ForEach(template.pathLogic, id: \.self) { rect in
                             let isIntersecting = cameraVM.detectedFaces.contains { face in

@@ -10,6 +10,7 @@ import Vision
 
 struct CameraView: View {
     @Environment(\.verticalSizeClass) var vertiSizeClass
+    @Environment(\.dismiss) var dismiss
     
     @StateObject var VM = CameraViewModel()
     @StateObject private var photoLibraryViewModel = PhotoLibraryViewModel()
@@ -106,6 +107,8 @@ struct CameraView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
+
     }
     
     var focusIndicator: some View {
