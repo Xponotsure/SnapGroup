@@ -32,7 +32,7 @@ extension CameraView {
     
     var photoCaptureButton: some View {
         Button {
-            VM.takePhoto()
+            VM.startTimer()
         } label: {
             ZStack {
                 Circle()
