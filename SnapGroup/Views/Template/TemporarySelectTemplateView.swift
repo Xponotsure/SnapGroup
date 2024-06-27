@@ -88,6 +88,7 @@ struct TemporarySelectTemplateView: View {
                 NavigationLink(destination: CameraView(template: selectedTemplate)) {
                     Text("Select")
                 }
+                .navigationBarBackButtonHidden(true)
                 
             }
         }

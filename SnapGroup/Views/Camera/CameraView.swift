@@ -10,6 +10,7 @@ import Vision
 
 struct CameraView: View {
     @Environment(\.verticalSizeClass) var vertiSizeClass
+    @Environment(\.dismiss) var dismiss
     
     @StateObject  var VM = CameraViewModel()
     
@@ -102,6 +103,8 @@ struct CameraView: View {
                 self.imageData = data
             }
         }
+        .navigationBarBackButtonHidden(true)
+
     }
     
     //     var cameraPreview: some View {
