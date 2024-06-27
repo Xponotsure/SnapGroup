@@ -62,14 +62,8 @@ struct CameraView: View {
                                 }
                             )
                     }
-                    
-                    if isLandscape {
-                        verticalControlBar.frame(width: controlFrameHeight)
-                    }
-                }
-                if !isLandscape {
-                    horizontalControlBar.frame(height: controlFrameHeight)
-                }
+                }                
+                horizontalControlBar.frame(height: controlFrameHeight)
             }
             
             if showFocusIndicator {

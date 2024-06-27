@@ -92,7 +92,7 @@ struct CameraPreview: UIViewControllerRepresentable {
         let previewWidth = uiViewController.view.frame.width
         let previewHeight = previewWidth * 4 / 3
         cameraVM.preview.frame = CGRect(x: 0, y: (uiViewController.view.frame.height - previewHeight) / 2, width: previewWidth, height: previewHeight)
-        cameraVM.preview.connection?.videoRotationAngle = UIDevice.current.orientation.videoRotationAngle
+        cameraVM.preview.connection?.videoRotationAngle = 90
     }
 
 }
