@@ -10,6 +10,7 @@ import UIKit
 import SwiftUI
 import Photos
 import Vision
+import WatchConnectivity
 
 class CameraViewModel: NSObject, ObservableObject {
     enum PhotoCaptureState {
@@ -31,8 +32,8 @@ class CameraViewModel: NSObject, ObservableObject {
     @Published var isUsingFrontCamera = false
     @Published var detectedFaces: [VNFaceObservation] = []
     
-//    @Published var path: [CGRect] = []
-
+    //    @Published var path: [CGRect] = []
+    
     @Published var isCountingDown = false
     
     
@@ -47,13 +48,16 @@ class CameraViewModel: NSObject, ObservableObject {
     
     private var countdownWorkItem: DispatchWorkItem?
     
+    private var watchConnector: WatchConnector
+    
     
     override init() {
+        self.watchConnector = WatchConnector()
         super.init()
         requestAccessAndSetup()
         setupFaceDetection()
     }
-
+    
     func requestAccessAndSetup() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
@@ -115,48 +119,48 @@ class CameraViewModel: NSObject, ObservableObject {
         setup()
     }
     func startTimer() {
-            guard timeSet > 0 else {
-                takePhoto()
-                return
-            }
+        guard timeSet > 0 else {
+            takePhoto()
+            return
+        }
+        
+        var countdown = timeSet
+        onCountdownUpdate?(countdown)
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            countdown -= 1
+            self?.onCountdownUpdate?(countdown)
             
-            var countdown = timeSet
-            onCountdownUpdate?(countdown)
-            
-            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-                countdown -= 1
-                self?.onCountdownUpdate?(countdown)
-                
-                if countdown <= 0 {
-                    timer.invalidate()
-                    self?.onCountdownUpdate?(nil) // Set countdown to nil after timer finishes
-                    self?.takePhoto()
-                }
+            if countdown <= 0 {
+                timer.invalidate()
+                self?.onCountdownUpdate?(nil) // Set countdown to nil after timer finishes
+                self?.takePhoto()
             }
         }
-
+    }
+    
     
     func takePhoto() {
-         let capturePhoto = {
-             guard case .notStarted = self.photoCaptureState else { return }
-             self.photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
-             withAnimation {
-                 self.photoCaptureState = .processing
-             }
-         }
-
-         if timeSet != 0 {
-             self.isCountingDown = true
-             startCountdown(duration: timeSet) {
-                 if self.isCountingDown { // Ensure countdown completed without cancellation
-                     capturePhoto()
-                     self.isCountingDown = false
-                 }
-             }
-         } else {
-             capturePhoto()
-         }
-     }
+        let capturePhoto = {
+            guard case .notStarted = self.photoCaptureState else { return }
+            self.photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+            withAnimation {
+                self.photoCaptureState = .processing
+            }
+        }
+        
+        if timeSet != 0 {
+            self.isCountingDown = true
+            startCountdown(duration: timeSet) {
+                if self.isCountingDown { // Ensure countdown completed without cancellation
+                    capturePhoto()
+                    self.isCountingDown = false
+                }
+            }
+        } else {
+            capturePhoto()
+        }
+    }
     
     
     private func startCountdown(duration: Int, completion: @escaping () -> Void) {
@@ -198,7 +202,7 @@ class CameraViewModel: NSObject, ObservableObject {
             }
         }
     }
-
+    
     func cancelCapturePhoto() {
         self.isCountingDown = false
         countdownWorkItem?.cancel()
@@ -212,7 +216,7 @@ class CameraViewModel: NSObject, ObservableObject {
     }
     
     @Published var isFlashOn = false
-
+    
     func toggleFlash() {
         guard let device = getCurrentCameraDevice() else { return }
         do {
@@ -249,13 +253,13 @@ class CameraViewModel: NSObject, ObservableObject {
         return (session.inputs.first as? AVCaptureDeviceInput)?.device
     }
     
-//    private func frontCameraDevice() -> AVCaptureDevice? {
-//        return AVCaptureDevice.devices().first { $0.position == .front }
-//    }
-//    
-//    private func backCameraDevice() -> AVCaptureDevice? {
-//        return AVCaptureDevice.devices().first { $0.position == .back }
-//    }
+    //    private func frontCameraDevice() -> AVCaptureDevice? {
+    //        return AVCaptureDevice.devices().first { $0.position == .front }
+    //    }
+    //
+    //    private func backCameraDevice() -> AVCaptureDevice? {
+    //        return AVCaptureDevice.devices().first { $0.position == .back }
+    //    }
     
     private func frontCameraDevice() -> AVCaptureDevice? {
         let discoverySession = AVCaptureDevice.DiscoverySession(
@@ -265,7 +269,7 @@ class CameraViewModel: NSObject, ObservableObject {
         )
         return discoverySession.devices.first
     }
-
+    
     private func backCameraDevice() -> AVCaptureDevice? {
         let discoverySession = AVCaptureDevice.DiscoverySession(
             deviceTypes: [.builtInWideAngleCamera],
@@ -276,15 +280,15 @@ class CameraViewModel: NSObject, ObservableObject {
     }
     
     func setZoom(scale: CGFloat) {
-            guard let device = getCurrentCameraDevice() else { return }
-            do {
-                try device.lockForConfiguration()
-                device.videoZoomFactor = max(1.0, min(device.activeFormat.videoMaxZoomFactor, scale))
-                device.unlockForConfiguration()
-            } catch {
-                print("Zoom configuration error: \(error.localizedDescription)")
-            }
+        guard let device = getCurrentCameraDevice() else { return }
+        do {
+            try device.lockForConfiguration()
+            device.videoZoomFactor = max(1.0, min(device.activeFormat.videoMaxZoomFactor, scale))
+            device.unlockForConfiguration()
+        } catch {
+            print("Zoom configuration error: \(error.localizedDescription)")
         }
+    }
     
     
     
@@ -306,7 +310,7 @@ class CameraViewModel: NSObject, ObservableObject {
         preview.frame = view.bounds
         view.layer.addSublayer(preview)
     }
-
+    
     
     private func setupFaceDetection() {
         faceDetectionRequest = VNDetectFaceRectanglesRequest { [weak self] (request, error) in
@@ -328,12 +332,31 @@ class CameraViewModel: NSObject, ObservableObject {
     }
     
     func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, screenSize: CGSize) {
-           guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-           let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
-           try? requestHandler.perform([faceDetectionRequest])
-       }
-
-
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
+        try? requestHandler.perform([faceDetectionRequest])
+        
+//        // Convert pixelBuffer to UIImage
+//        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+//        let uiImage = UIImage(ciImage: ciImage)
+//        
+//        // Compress and send the image to the Apple Watch
+//        if let imageData = uiImage.jpegData(compressionQuality: 0.001) {
+//            watchConnector.sendImageToWatch(imageData)
+//        }
+        
+        
+        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+                let context = CIContext()
+                if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
+                    let uiImage = UIImage(cgImage: cgImage)
+                    if let imageData = uiImage.jpegData(compressionQuality: 0.00001) {
+                        watchConnector.sendImageToWatch(imageData)
+                    }
+                }
+    }
+    
+    
 }
 
 extension CameraViewModel: AVCapturePhotoCaptureDelegate {
@@ -371,7 +394,7 @@ extension CameraViewModel: AVCaptureVideoDataOutputSampleBufferDelegate {
     }
     
 }
-  
+
 class PhotoLibraryViewModel: NSObject, ObservableObject, PHPhotoLibraryChangeObserver {
     @Published var recentPhotos: [UIImage] = []
     
@@ -409,6 +432,6 @@ class PhotoLibraryViewModel: NSObject, ObservableObject, PHPhotoLibraryChangeObs
         }
     }
 }
-    
+
 
 
