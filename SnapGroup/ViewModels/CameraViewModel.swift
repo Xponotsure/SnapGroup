@@ -19,9 +19,8 @@ class CameraViewModel: NSObject, ObservableObject {
         case finished(Data)
     }
     
-    var timeSet: Int = 0
-    var timer: Timer?
-    var onCountdownUpdate: ((Int?) -> Void)?
+    @Published var timeSet: Int = 0
+    @Published var onCountdownUpdate: ((Int?) -> Void)?
     var session = AVCaptureSession()
     var preview = AVCaptureVideoPreviewLayer()
     var photoOutput = AVCapturePhotoOutput()
@@ -122,27 +121,6 @@ class CameraViewModel: NSObject, ObservableObject {
         session.inputs.forEach { session.removeInput($0) }
         setup()
     }
-    func startTimer() {
-        guard timeSet > 0 else {
-            takePhoto()
-            return
-        }
-        
-        var countdown = timeSet
-        onCountdownUpdate?(countdown)
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-            countdown -= 1
-            self?.onCountdownUpdate?(countdown)
-            
-            if countdown <= 0 {
-                timer.invalidate()
-                self?.onCountdownUpdate?(nil) // Set countdown to nil after timer finishes
-                self?.takePhoto()
-            }
-        }
-    }
-    
     
     func takePhoto() {
         let capturePhoto = {
@@ -165,7 +143,6 @@ class CameraViewModel: NSObject, ObservableObject {
             capturePhoto()
         }
     }
-    
     
     private func startCountdown(duration: Int, completion: @escaping () -> Void) {
         // Cancel any existing countdown work item

@@ -28,6 +28,7 @@ struct CameraView: View {
     
     let controlButtonWidth: CGFloat = 120
     let controlFrameHeight: CGFloat = 180
+    let focusIndicatorSize: CGFloat = 80
     
     var isLandscape: Bool { vertiSizeClass == .compact }
     
@@ -62,18 +63,13 @@ struct CameraView: View {
                                 }
                             )
                     }
-                    
-                    if isLandscape {
-                        verticalControlBar.frame(width: controlFrameHeight)
-                    }
                 }
-                if !isLandscape {
-                    horizontalControlBar.frame(height: controlFrameHeight)
-                }
+                
+                horizontalControlBar.frame(height: controlFrameHeight)
             }
             
             if showFocusIndicator {
-                focusIndicator.position(focusPoint)
+                focusIndicator
             }
             if let countdown = countdown {
                 Text("\(countdown)")
@@ -114,9 +110,10 @@ struct CameraView: View {
     var focusIndicator: some View {
         Rectangle()
             .stroke(Color.yellow, lineWidth: 2)
-            .frame(width: 80, height: 80)
+            .frame(width: focusIndicatorSize, height: focusIndicatorSize)
             .opacity(showFocusIndicator ? 0.8 : 0)
             .animation(.easeInOut(duration: 0.5), value: showFocusIndicator)
+            .position(x: focusPoint.x, y: focusPoint.y + focusIndicatorSize)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.showFocusIndicator = false
