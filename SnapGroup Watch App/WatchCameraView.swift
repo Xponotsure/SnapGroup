@@ -16,6 +16,9 @@ struct WatchCameraView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                    .frame(width: 200, height: 200)
+                    .rotationEffect(.degrees(90))
+                    .ignoresSafeArea()
             } else {
                 Text("Waiting for image...")
             }

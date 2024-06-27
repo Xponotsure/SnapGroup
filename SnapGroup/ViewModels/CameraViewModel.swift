@@ -50,6 +50,10 @@ class CameraViewModel: NSObject, ObservableObject {
     
     private var watchConnector: WatchConnector
     
+    private var lastSentTime: TimeInterval = 0
+    private let frameRate: TimeInterval = 0.1// send one frame per second
+    private let targetSize = CGSize(width: 200, height: 200)
+    
     
     override init() {
         self.watchConnector = WatchConnector()
@@ -331,29 +335,57 @@ class CameraViewModel: NSObject, ObservableObject {
         )
     }
     
+    func resizeImage(_ image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Determine the scale factor to resize the image to fit the target size
+        let scaleFactor = min(widthRatio, heightRatio)
+        
+        let newSize = CGSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        
+        let resizedImage = renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: newSize))
+        }
+        
+        return resizedImage
+    }
+    
+    
     func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, screenSize: CGSize) {
+//        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+//        let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
+//        try? requestHandler.perform([faceDetectionRequest])
+//        
+//        
+//        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+//        let context = CIContext()
+//        if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
+//            let uiImage = UIImage(cgImage: cgImage)
+//            if let imageData = uiImage.jpegData(compressionQuality: 0.5) {
+//                watchConnector.sendImageToWatch(imageData)
+//            }
+//        }
+        let currentTime = CACurrentMediaTime()
+        guard currentTime - lastSentTime >= frameRate else { return }
+        lastSentTime = currentTime
+        
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
         try? requestHandler.perform([faceDetectionRequest])
         
-//        // Convert pixelBuffer to UIImage
-//        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-//        let uiImage = UIImage(ciImage: ciImage)
-//        
-//        // Compress and send the image to the Apple Watch
-//        if let imageData = uiImage.jpegData(compressionQuality: 0.001) {
-//            watchConnector.sendImageToWatch(imageData)
-//        }
-        
-        
         let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-                let context = CIContext()
-                if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
-                    let uiImage = UIImage(cgImage: cgImage)
-                    if let imageData = uiImage.jpegData(compressionQuality: 0.00001) {
-                        watchConnector.sendImageToWatch(imageData)
-                    }
-                }
+        let context = CIContext()
+        if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
+            let uiImage = UIImage(cgImage: cgImage)
+            let resizedImage = resizeImage(uiImage, targetSize: targetSize)
+            if let imageData = resizedImage.jpegData(compressionQuality: 0.5) {
+                watchConnector.sendImageToWatch(imageData)
+            }
+        }
     }
     
     
