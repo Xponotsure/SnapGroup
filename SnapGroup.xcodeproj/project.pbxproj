@@ -17,6 +17,7 @@
 		0A93DABB2C22C8A800EA0D63 /* ControlButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */; };
 		0A93DABD2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */; };
 		0A93DABF2C22C92500EA0D63 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DABE2C22C92500EA0D63 /* View+.swift */; };
+		753DFB992C2D3F9D003F030A /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DFB982C2D3F9D003F030A /* Welcome.swift */; };
 		D93547CF2C2D258C008E17CD /* CameraStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93547CB2C2D258C008E17CD /* CameraStreamManager.swift */; };
 		D93547D02C2D258C008E17CD /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93547CC2C2D258C008E17CD /* HomeScreen.swift */; };
 		D93547D12C2D258C008E17CD /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93547CD2C2D258C008E17CD /* Splash.swift */; };
@@ -74,6 +75,7 @@
 		0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtonView.swift; sourceTree = "<group>"; };
 		0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDeviceOrientation+.swift"; sourceTree = "<group>"; };
 		0A93DABE2C22C92500EA0D63 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
+		753DFB982C2D3F9D003F030A /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
 		D93547CB2C2D258C008E17CD /* CameraStreamManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraStreamManager.swift; sourceTree = "<group>"; };
 		D93547CC2C2D258C008E17CD /* HomeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		D93547CD2C2D258C008E17CD /* Splash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */,
 				D93C264E2C22BBC800A15FEF /* Assets.xcassets */,
 				D93C26502C22BBC800A15FEF /* Preview Content */,
+				753DFB982C2D3F9D003F030A /* Welcome.swift */,
 			);
 			path = SnapGroup;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 			files = (
 				D93C26A02C2BBEAD00A15FEF /* SillhouteView.swift in Sources */,
 				D93547D22C2D258C008E17CD /* WatchConnector.swift in Sources */,
+				753DFB992C2D3F9D003F030A /* Welcome.swift in Sources */,
 				0A93DAB22C22C82600EA0D63 /* CameraPreview.swift in Sources */,
 				D93C26A42C2BCD4200A15FEF /* TemporarySelectTemplateView.swift in Sources */,
 				0A93DAB42C22C83900EA0D63 /* CameraView+Buttons.swift in Sources */,
@@ -522,7 +526,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
+				DEVELOPMENT_TEAM = F4FL7369SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -552,7 +556,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
+				DEVELOPMENT_TEAM = F4FL7369SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -584,7 +588,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
+				DEVELOPMENT_TEAM = F4FL7369SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
@@ -620,7 +624,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = 7R7X9XJ9WV;
+				DEVELOPMENT_TEAM = F4FL7369SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
