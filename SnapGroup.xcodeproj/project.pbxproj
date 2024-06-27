@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A07C5E82C2A9B2800AEDE72 /* CameraView+TopControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A07C5E72C2A9B2800AEDE72 /* CameraView+TopControlBar.swift */; };
 		0A93DAAD2C22C7B500EA0D63 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */; };
 		0A93DAB02C22C80B00EA0D63 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */; };
 		0A93DAB22C22C82600EA0D63 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */; };
@@ -17,6 +16,11 @@
 		0A93DABB2C22C8A800EA0D63 /* ControlButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */; };
 		0A93DABD2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */; };
 		0A93DABF2C22C92500EA0D63 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DABE2C22C92500EA0D63 /* View+.swift */; };
+		751059622C25CEDB000AFB3E /* WatchConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751059612C25CEDB000AFB3E /* WatchConnector.swift */; };
+		751059642C25D054000AFB3E /* WatchToIOSConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751059632C25D054000AFB3E /* WatchToIOSConnector.swift */; };
+		753DFB7F2C26C3EF003F030A /* CameraStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DFB7E2C26C3EF003F030A /* CameraStreamManager.swift */; };
+		753DFB8F2C26D824003F030A /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DFB8E2C26D824003F030A /* Splash.swift */; };
+		753DFB912C26D9B3003F030A /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DFB902C26D9B3003F030A /* HomeScreen.swift */; };
 		D93C264B2C22BBC700A15FEF /* SnapGroupApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */; };
 		D93C264D2C22BBC700A15FEF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C264C2C22BBC700A15FEF /* ContentView.swift */; };
 		D93C264F2C22BBC800A15FEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C264E2C22BBC800A15FEF /* Assets.xcassets */; };
@@ -26,12 +30,6 @@
 		D93C265F2C22BBC800A15FEF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C265E2C22BBC800A15FEF /* ContentView.swift */; };
 		D93C26612C22BBC900A15FEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C26602C22BBC900A15FEF /* Assets.xcassets */; };
 		D93C26642C22BBC900A15FEF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C26632C22BBC900A15FEF /* Preview Assets.xcassets */; };
-		D93C26992C2ACC4300A15FEF /* FaceDetectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C26982C2ACC4300A15FEF /* FaceDetectionOverlayView.swift */; };
-		D93C269B2C2B12C300A15FEF /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C269A2C2B12C300A15FEF /* Template.swift */; };
-		D93C26A02C2BBEAD00A15FEF /* SillhouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C269F2C2BBEAD00A15FEF /* SillhouteView.swift */; };
-		D93C26A22C2BBF6700A15FEF /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C26A12C2BBF6700A15FEF /* CGRect+.swift */; };
-		D93C26A42C2BCD4200A15FEF /* TemporarySelectTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C26A32C2BCD4200A15FEF /* TemporarySelectTemplateView.swift */; };
-		D93C26A62C2BCDED00A15FEF /* TemplateGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C26A52C2BCDED00A15FEF /* TemplateGridItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +57,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0A07C5E72C2A9B2800AEDE72 /* CameraView+TopControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraView+TopControlBar.swift"; sourceTree = "<group>"; };
 		0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
@@ -69,6 +66,11 @@
 		0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtonView.swift; sourceTree = "<group>"; };
 		0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDeviceOrientation+.swift"; sourceTree = "<group>"; };
 		0A93DABE2C22C92500EA0D63 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
+		751059612C25CEDB000AFB3E /* WatchConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnector.swift; sourceTree = "<group>"; };
+		751059632C25D054000AFB3E /* WatchToIOSConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchToIOSConnector.swift; sourceTree = "<group>"; };
+		753DFB7E2C26C3EF003F030A /* CameraStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraStreamManager.swift; sourceTree = "<group>"; };
+		753DFB8E2C26D824003F030A /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
+		753DFB902C26D9B3003F030A /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		D93C26472C22BBC700A15FEF /* SnapGroup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapGroup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapGroupApp.swift; sourceTree = "<group>"; };
 		D93C264C2C22BBC700A15FEF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -79,12 +81,6 @@
 		D93C265E2C22BBC800A15FEF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D93C26602C22BBC900A15FEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D93C26632C22BBC900A15FEF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D93C26982C2ACC4300A15FEF /* FaceDetectionOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionOverlayView.swift; sourceTree = "<group>"; };
-		D93C269A2C2B12C300A15FEF /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
-		D93C269F2C2BBEAD00A15FEF /* SillhouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SillhouteView.swift; sourceTree = "<group>"; };
-		D93C26A12C2BBF6700A15FEF /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
-		D93C26A32C2BCD4200A15FEF /* TemporarySelectTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporarySelectTemplateView.swift; sourceTree = "<group>"; };
-		D93C26A52C2BCDED00A15FEF /* TemplateGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateGridItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +101,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A93DAAA2C22C75C00EA0D63 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DAAB2C22C7A500EA0D63 /* View Models */,
+				0A93DAAE2C22C7E100EA0D63 /* Views */,
+				0A93DAB92C22C86800EA0D63 /* Extensions */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		0A93DAAB2C22C7A500EA0D63 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		0A93DAAE2C22C7E100EA0D63 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */,
+				0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */,
+				0A93DAB32C22C83800EA0D63 /* CameraView+Buttons.swift */,
+				0A93DAB52C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift */,
+				0A93DAB72C22C85800EA0D63 /* CameraView+VerticalControlBar.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A93DAB92C22C86800EA0D63 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */,
+				0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */,
+				0A93DABE2C22C92500EA0D63 /* View+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D93C263E2C22BBC700A15FEF = {
 			isa = PBXGroup;
 			children = (
@@ -126,15 +162,15 @@
 		D93C26492C22BBC700A15FEF /* SnapGroup */ = {
 			isa = PBXGroup;
 			children = (
-				D93C26732C231EBF00A15FEF /* Extensions */,
-				D93C26702C2315EE00A15FEF /* Models */,
-				D93C26742C23225500A15FEF /* Components */,
-				D93C266F2C2315E600A15FEF /* ViewModels */,
-				D93C26712C2315F600A15FEF /* Views */,
-				D93C264C2C22BBC700A15FEF /* ContentView.swift */,
+				0A93DAAA2C22C75C00EA0D63 /* Camera */,
 				D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */,
+				D93C264C2C22BBC700A15FEF /* ContentView.swift */,
 				D93C264E2C22BBC800A15FEF /* Assets.xcassets */,
 				D93C26502C22BBC800A15FEF /* Preview Content */,
+				751059612C25CEDB000AFB3E /* WatchConnector.swift */,
+				753DFB7E2C26C3EF003F030A /* CameraStreamManager.swift */,
+				753DFB8E2C26D824003F030A /* Splash.swift */,
+				753DFB902C26D9B3003F030A /* HomeScreen.swift */,
 			);
 			path = SnapGroup;
 			sourceTree = "<group>";
@@ -154,6 +190,7 @@
 				D93C265E2C22BBC800A15FEF /* ContentView.swift */,
 				D93C26602C22BBC900A15FEF /* Assets.xcassets */,
 				D93C26622C22BBC900A15FEF /* Preview Content */,
+				751059632C25D054000AFB3E /* WatchToIOSConnector.swift */,
 			);
 			path = "SnapGroup Watch App";
 			sourceTree = "<group>";
@@ -164,73 +201,6 @@
 				D93C26632C22BBC900A15FEF /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		D93C266F2C2315E600A15FEF /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				0A93DAAC2C22C7B500EA0D63 /* CameraViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		D93C26702C2315EE00A15FEF /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D93C269A2C2B12C300A15FEF /* Template.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		D93C26712C2315F600A15FEF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				D93C269E2C2BBE9800A15FEF /* Template */,
-				D93C26722C231E7D00A15FEF /* Camera */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		D93C26722C231E7D00A15FEF /* Camera */ = {
-			isa = PBXGroup;
-			children = (
-				0A93DAAF2C22C80B00EA0D63 /* CameraView.swift */,
-				0A93DAB12C22C82600EA0D63 /* CameraPreview.swift */,
-				0A93DAB32C22C83800EA0D63 /* CameraView+Buttons.swift */,
-				0A93DAB52C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift */,
-				0A07C5E72C2A9B2800AEDE72 /* CameraView+TopControlBar.swift */,
-				0A93DAB72C22C85800EA0D63 /* CameraView+VerticalControlBar.swift */,
-			);
-			path = Camera;
-			sourceTree = "<group>";
-		};
-		D93C26732C231EBF00A15FEF /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				0A93DABC2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift */,
-				0A93DABE2C22C92500EA0D63 /* View+.swift */,
-				D93C26A12C2BBF6700A15FEF /* CGRect+.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		D93C26742C23225500A15FEF /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				0A93DABA2C22C8A800EA0D63 /* ControlButtonView.swift */,
-				D93C26982C2ACC4300A15FEF /* FaceDetectionOverlayView.swift */,
-				D93C26A52C2BCDED00A15FEF /* TemplateGridItem.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		D93C269E2C2BBE9800A15FEF /* Template */ = {
-			isa = PBXGroup;
-			children = (
-				D93C269F2C2BBEAD00A15FEF /* SillhouteView.swift */,
-				D93C26A32C2BCD4200A15FEF /* TemporarySelectTemplateView.swift */,
-			);
-			path = Template;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,24 +305,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D93C26A02C2BBEAD00A15FEF /* SillhouteView.swift in Sources */,
+				753DFB8F2C26D824003F030A /* Splash.swift in Sources */,
 				0A93DAB22C22C82600EA0D63 /* CameraPreview.swift in Sources */,
-				D93C26A42C2BCD4200A15FEF /* TemporarySelectTemplateView.swift in Sources */,
+				751059622C25CEDB000AFB3E /* WatchConnector.swift in Sources */,
 				0A93DAB42C22C83900EA0D63 /* CameraView+Buttons.swift in Sources */,
-				D93C26A62C2BCDED00A15FEF /* TemplateGridItem.swift in Sources */,
-				D93C269B2C2B12C300A15FEF /* Template.swift in Sources */,
+				753DFB7F2C26C3EF003F030A /* CameraStreamManager.swift in Sources */,
 				0A93DABB2C22C8A800EA0D63 /* ControlButtonView.swift in Sources */,
 				D93C264D2C22BBC700A15FEF /* ContentView.swift in Sources */,
-				D93C26992C2ACC4300A15FEF /* FaceDetectionOverlayView.swift in Sources */,
 				0A93DABD2C22C8BD00EA0D63 /* UIDeviceOrientation+.swift in Sources */,
-				0A07C5E82C2A9B2800AEDE72 /* CameraView+TopControlBar.swift in Sources */,
 				0A93DABF2C22C92500EA0D63 /* View+.swift in Sources */,
 				D93C264B2C22BBC700A15FEF /* SnapGroupApp.swift in Sources */,
 				0A93DAAD2C22C7B500EA0D63 /* CameraViewModel.swift in Sources */,
+				753DFB912C26D9B3003F030A /* HomeScreen.swift in Sources */,
 				0A93DAB82C22C85800EA0D63 /* CameraView+VerticalControlBar.swift in Sources */,
 				0A93DAB62C22C84A00EA0D63 /* CameraView+HorizontalControlBar.swift in Sources */,
 				0A93DAB02C22C80B00EA0D63 /* CameraView.swift in Sources */,
-				D93C26A22C2BBF6700A15FEF /* CGRect+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D93C265F2C22BBC800A15FEF /* ContentView.swift in Sources */,
+				751059642C25D054000AFB3E /* WatchToIOSConnector.swift in Sources */,
 				D93C265D2C22BBC800A15FEF /* SnapGroupApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,11 +470,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = F4FL7369SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				"INFOPLIST_KEY_UIUserInterfaceStyle[sdk=*]" = Dark;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.xponotsure.SnapGroup;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -520,7 +490,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Debug;
 		};
@@ -532,11 +502,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = F4FL7369SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.xponotsure.SnapGroup;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -551,7 +522,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Release;
 		};
@@ -564,18 +535,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = F4FL7369SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to access your camera to take pictures.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to save photo";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow to access galery";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -600,18 +569,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SnapGroup/Preview Content\"";
-				DEVELOPMENT_TEAM = CLWP32G426;
+				DEVELOPMENT_TEAM = F4FL7369SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SnapGroup;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to access your camera to take pictures.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to save photo";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow to access galery";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
