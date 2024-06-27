@@ -62,7 +62,8 @@ struct CameraView: View {
                                 }
                             )
                     }
-                }                
+                }
+                
                 horizontalControlBar.frame(height: controlFrameHeight)
             }
             
