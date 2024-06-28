@@ -41,7 +41,6 @@ extension CameraView {
                 
             }
         }
-        .frame(height: 168.75)
     }
 }
 

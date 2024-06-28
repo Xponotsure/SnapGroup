@@ -16,6 +16,7 @@ struct Splash: View {
             Text("Snap Group")
                 .font(.headline)
         }
+        .hideStatusBar()
     }
 }
 
