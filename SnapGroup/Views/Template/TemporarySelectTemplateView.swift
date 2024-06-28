@@ -92,6 +92,7 @@ struct TemporarySelectTemplateView: View {
                 
             }
         }
+        .hideStatusBar()
     }
     
 }

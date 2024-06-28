@@ -104,7 +104,7 @@ struct CameraView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-
+        .hideStatusBar()
     }
     
     var focusIndicator: some View {

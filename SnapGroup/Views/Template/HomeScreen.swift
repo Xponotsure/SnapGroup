@@ -40,6 +40,7 @@ struct HomeScreen: View {
                     .background(RoundedRectangle(cornerRadius: 9))
             }).frame(maxWidth: .infinity, alignment: .center).padding()
         }
+        .hideStatusBar()
     }
 }
 
