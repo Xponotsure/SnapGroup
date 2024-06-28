@@ -10,6 +10,12 @@ import WatchConnectivity
 
 class WatchConnector: NSObject, WCSessionDelegate {
     var session: WCSession
+    var conditionTimer: Timer?
+    var shouldAlert: Bool = false {
+        didSet {
+            sendConditionToWatch()
+        }
+    }
     
     init(session: WCSession = .default) {
         self.session = session
@@ -40,4 +46,24 @@ class WatchConnector: NSObject, WCSessionDelegate {
             session.sendMessage(["imageData": imageData], replyHandler: nil, errorHandler: nil)
         }
     }
+    
+    func sendConditionToWatch() {
+        let message = ["shouldAlert": shouldAlert]
+        session.sendMessage(message, replyHandler: nil) { error in
+            print("Error sending message to watch: \(error.localizedDescription)")
+        }
+    }
+    
+    func startConditionCheckTimer() {
+        stopConditionCheckTimer()
+        conditionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            self?.sendConditionToWatch()
+        }
+    }
+    
+    func stopConditionCheckTimer() {
+        conditionTimer?.invalidate()
+        conditionTimer = nil
+    }
+    
 }

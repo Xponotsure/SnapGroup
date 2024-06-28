@@ -57,10 +57,10 @@ struct SillhouteView: View {
                 .overlay{
                     GeometryReader{ geo in
                         ForEach(template.pathLogic, id: \.self) { rect in
-                            let isIntersecting = cameraVM.detectedFaces.contains { face in
-                                let faceRect = cameraVM.convertBoundingBox(face.boundingBox, screenSize: geo.size)
-                                return rect.intersects(faceRect)
-                            }
+//                            let isIntersecting = cameraVM.detectedFaces.contains { face in
+//                                let faceRect = cameraVM.convertBoundingBox(face.boundingBox, screenSize: geo.size)
+//                                return rect.intersects(faceRect)
+//                            }
                             Rectangle()
                                 .path(in: rect)
                             

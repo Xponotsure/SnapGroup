@@ -14,7 +14,9 @@ class WatchToIOSConnector: NSObject, WCSessionDelegate, ObservableObject {
     
     var session: WCSession
     @Published var receivedImage: UIImage?
-
+    
+    var hapticTimer: Timer?
+    var shouldContinueHaptic: Bool = false
     
     init(session: WCSession = .default) {
         self.session = session
@@ -38,6 +40,35 @@ class WatchToIOSConnector: NSObject, WCSessionDelegate, ObservableObject {
                 }
             }
         }
+        
+        if let shouldAlert = message["shouldAlert"] as? Bool {
+            if shouldAlert {
+                startHapticTimer()
+            } else {
+                stopHapticTimer()
+            }
+        }
     }
     
+    func startHapticTimer() {
+        stopHapticTimer()  // Ensure any existing timer is invalidated
+        triggerHapticFeedback()
+        hapticTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.triggerHapticFeedback()
+        }
+    }
+
+    func stopHapticTimer() {
+        hapticTimer?.invalidate()
+        hapticTimer = nil
+    }
+
+    func triggerHapticFeedback() {
+        WKInterfaceDevice.current().play(.notification)
+    }
+
+
+
+
+
 }

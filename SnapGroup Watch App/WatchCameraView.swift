@@ -15,17 +15,18 @@ struct WatchCameraView: View {
             if let image = connector.receivedImage {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
                     .frame(width: 200, height: 200)
                     .rotationEffect(.degrees(90))
-                    .ignoresSafeArea()
             } else {
                 Text("Waiting for image...")
             }
         }
+        .ignoresSafeArea(.all)
+
     }
 }
 
-//#Preview {
-//    WatchCameraView()
-//}
+#Preview {
+    WatchCameraView(connector: WatchToIOSConnector())
+}

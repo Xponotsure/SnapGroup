@@ -12,14 +12,18 @@ import SwiftUI
 
 class InterfaceController: WKHostingController<WatchCameraView> {
     var connector = WatchToIOSConnector()
-
+    
     override var body: WatchCameraView {
         return WatchCameraView(connector: connector)
     }
-
+    
     override func willActivate() {
         super.willActivate()
         connector.session.activate()
+    }
+    
+    func sendAlertHaptic() {
+        WKInterfaceDevice.current().play(.notification)
     }
 }
 

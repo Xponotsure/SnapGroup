@@ -352,6 +352,7 @@ class CameraViewModel: NSObject, ObservableObject {
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
+        
         try? requestHandler.perform([faceDetectionRequest])
         
         let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
