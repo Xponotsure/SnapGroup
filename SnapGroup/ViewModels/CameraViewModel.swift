@@ -360,7 +360,7 @@ class CameraViewModel: NSObject, ObservableObject {
         if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
             let uiImage = UIImage(cgImage: cgImage)
             let resizedImage = resizeImage(uiImage, targetSize: targetSize)
-            if let imageData = resizedImage.jpegData(compressionQuality: 0.5) {
+            if let imageData = resizedImage.jpegData(compressionQuality: 0.1) {
                 watchConnector.sendImageToWatch(imageData)
             }
         }

@@ -66,7 +66,7 @@ struct SillhouteView: View {
                             
                             
                             
-                                .stroke(Color.clear, lineWidth: 5)
+                                .stroke(Color.clear , lineWidth: 5)
 
 //                                .stroke(isIntersecting ? Color.green : Color.blue, lineWidth: 2)
                         }

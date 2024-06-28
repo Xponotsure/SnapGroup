@@ -24,8 +24,8 @@
 		D93547D42C2D259C008E17CD /* WatchToIOSConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93547D32C2D259C008E17CD /* WatchToIOSConnector.swift */; };
 		D93547D62C2D44E3008E17CD /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93547D52C2D44E3008E17CD /* InterfaceController.swift */; };
 		D93547D82C2D4501008E17CD /* WatchCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93547D72C2D4501008E17CD /* WatchCameraView.swift */; };
+		D93547E72C2EA306008E17CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93547E62C2EA306008E17CD /* Assets.xcassets */; };
 		D93C264B2C22BBC700A15FEF /* SnapGroupApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */; };
-		D93C264F2C22BBC800A15FEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C264E2C22BBC800A15FEF /* Assets.xcassets */; };
 		D93C26522C22BBC800A15FEF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D93C26512C22BBC800A15FEF /* Preview Assets.xcassets */; };
 		D93C26582C22BBC800A15FEF /* SnapGroup Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D93C26572C22BBC800A15FEF /* SnapGroup Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D93C265D2C22BBC800A15FEF /* SnapGroupApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C265C2C22BBC800A15FEF /* SnapGroupApp.swift */; };
@@ -82,9 +82,9 @@
 		D93547D32C2D259C008E17CD /* WatchToIOSConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchToIOSConnector.swift; sourceTree = "<group>"; };
 		D93547D52C2D44E3008E17CD /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		D93547D72C2D4501008E17CD /* WatchCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCameraView.swift; sourceTree = "<group>"; };
+		D93547E62C2EA306008E17CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D93C26472C22BBC700A15FEF /* SnapGroup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapGroup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapGroupApp.swift; sourceTree = "<group>"; };
-		D93C264E2C22BBC800A15FEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D93C26512C22BBC800A15FEF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D93C26572C22BBC800A15FEF /* SnapGroup Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SnapGroup Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D93C265C2C22BBC800A15FEF /* SnapGroupApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapGroupApp.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 				D93C266F2C2315E600A15FEF /* ViewModels */,
 				D93C26712C2315F600A15FEF /* Views */,
 				D93C264A2C22BBC700A15FEF /* SnapGroupApp.swift */,
-				D93C264E2C22BBC800A15FEF /* Assets.xcassets */,
+				D93547E62C2EA306008E17CD /* Assets.xcassets */,
 				D93C26502C22BBC800A15FEF /* Preview Content */,
 			);
 			path = SnapGroup;
@@ -332,8 +332,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D93547E72C2EA306008E17CD /* Assets.xcassets in Resources */,
 				D93C26522C22BBC800A15FEF /* Preview Assets.xcassets in Resources */,
-				D93C264F2C22BBC800A15FEF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

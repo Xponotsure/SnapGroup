@@ -15,15 +15,23 @@ struct FaceDetectionOverlayView: View {
     var path: [CGRect]
     let watchConnector = WatchConnector()
     
-    
     var body: some View {
+//        let boundingBox = faceObservation.boundingBox
+//        let size = CGSize(width: boundingBox.width * screenSize.width, height: boundingBox.height * screenSize.height)
+//        let origin = CGPoint(x: boundingBox.minX * screenSize.width, y: (1 - boundingBox.minY - boundingBox.height) * screenSize.height)
+//        let faceRect = CGRect(origin: origin, size: size)
+//        
+//        let isIntersecting = path.contains { rect in
+//            rect.intersects(faceRect)
+//        }
+        
         let boundingBox = faceObservation.boundingBox
         let size = CGSize(width: boundingBox.width * screenSize.width, height: boundingBox.height * screenSize.height)
         let origin = CGPoint(x: boundingBox.minX * screenSize.width, y: (1 - boundingBox.minY - boundingBox.height) * screenSize.height)
         let faceRect = CGRect(origin: origin, size: size)
         
         let isIntersecting = path.contains { rect in
-            rect.intersects(faceRect)
+            rect.contains(faceRect)
         }
         
         watchConnector.startConditionCheckTimer()
