@@ -37,7 +37,6 @@ extension CameraView {
                 }
                 .padding(.horizontal, 20)
             }
-            .frame(height: 77.25)
             
             Spacer()
             
@@ -54,6 +53,7 @@ extension CameraView {
             })
             
         }
+        .frame(height: 77.25)
     }
 }
 
