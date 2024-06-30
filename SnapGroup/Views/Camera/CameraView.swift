@@ -10,12 +10,14 @@ import Vision
 
 struct CameraView: View {
     @Environment(\.verticalSizeClass) var vertiSizeClass
-    @Environment(\.dismiss) var dismiss
     
     @StateObject var VM = CameraViewModel()
+    @StateObject var watchConnector = WatchConnector()
     @StateObject private var photoLibraryViewModel = PhotoLibraryViewModel()
     
-    var template: Template?
+    @State var template: Template
+//    var sillhouteImage: String
+//    var orientation: Orientation
     
     @State var openTimer = false
     @State var showFullImage = false
@@ -25,6 +27,7 @@ struct CameraView: View {
     @State var imageData: Data?
     @State var showRecentImage = false
     @State var selectedPhotoIndex = 0
+    @State var showSettings = false
     
     let controlButtonWidth: CGFloat = 120
     let controlFrameHeight: CGFloat = 180
@@ -48,15 +51,15 @@ struct CameraView: View {
                             .overlay(
                                 GeometryReader { geo in
                                     ZStack {
-                                        if template != nil {
+//                                        if template != nil {
                                             
                                             ForEach(VM.detectedFaces, id: \.self) { face in
-                                                FaceDetectionOverlayView(faceObservation: face, screenSize: geo.size, path: template!.pathLogic)
+                                                FaceDetectionOverlayView(faceObservation: face, screenSize: geo.size, path: template.pathLogic)
                                             }
                                             
-                                            SillhouteView(template: template!, cameraVM: VM)
+                                            SillhouteView(template: template, cameraVM: VM)
                                                 .allowsHitTesting(false)
-                                        }
+//                                        }
                                     }
                                     .frame(width: geo.size.width, height: geo.size.height)
                                     .position(x: geo.size.width / 2, y: geo.size.height / 2)
@@ -84,6 +87,10 @@ struct CameraView: View {
                     self.countdown = value
                 }
             }
+            
+//            if(template != nil){
+                watchConnector.sendTemplate(template)
+//            }
         }
         .sheet(isPresented: $showRecentImage) {
             PhotoDetailView(selectedPhotoIndex: $selectedPhotoIndex, photos: photoLibraryViewModel.recentPhotos)
@@ -95,6 +102,9 @@ struct CameraView: View {
                     .scaledToFit()
             }
         }
+        .sheet(isPresented: $showSettings, content: {
+            TemporarySelectTemplateView(selectedTemplate: $template)
+        })
         .onReceive(VM.$photoCaptureState) { state in
             if case .finished(let data) = state {
                 self.imageData = data
@@ -157,6 +167,6 @@ struct PhotoDetailView: View {
     }
 }
 
-#Preview {
-    CameraView(template: TemplateData().groupOf3[0])
-}
+//#Preview {
+//    CameraView(template: TemplateData().groupOf3[0])
+//}

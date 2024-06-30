@@ -13,18 +13,10 @@ struct FaceDetectionOverlayView: View {
     let faceObservation: VNFaceObservation
     let screenSize: CGSize
     var path: [CGRect]
-    let watchConnector = WatchConnector()
+    var watchConnector = WatchConnector.wc
     
     var body: some View {
-//        let boundingBox = faceObservation.boundingBox
-//        let size = CGSize(width: boundingBox.width * screenSize.width, height: boundingBox.height * screenSize.height)
-//        let origin = CGPoint(x: boundingBox.minX * screenSize.width, y: (1 - boundingBox.minY - boundingBox.height) * screenSize.height)
-//        let faceRect = CGRect(origin: origin, size: size)
-//        
-//        let isIntersecting = path.contains { rect in
-//            rect.intersects(faceRect)
-//        }
-        
+
         let boundingBox = faceObservation.boundingBox
         let size = CGSize(width: boundingBox.width * screenSize.width, height: boundingBox.height * screenSize.height)
         let origin = CGPoint(x: boundingBox.minX * screenSize.width, y: (1 - boundingBox.minY - boundingBox.height) * screenSize.height)
@@ -36,20 +28,18 @@ struct FaceDetectionOverlayView: View {
         
         watchConnector.startConditionCheckTimer()
         
+        if isIntersecting{
+            DispatchQueue.main.async {
+                self.watchConnector.shouldAlert = false
+            }
+        }
+        
         if !isIntersecting{
             DispatchQueue.main.async {
                 self.watchConnector.shouldAlert = true
             }
-
         }
-        if isIntersecting{
-            
-            DispatchQueue.main.async {
-                self.watchConnector.shouldAlert = false
-            }
-
-
-        }
+        
         return Rectangle()
             .stroke(isIntersecting ? Color.green : Color.red, lineWidth: 2)
             .frame(width: size.width, height: size.height)

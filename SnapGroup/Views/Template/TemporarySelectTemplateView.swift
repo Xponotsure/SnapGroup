@@ -9,35 +9,21 @@ import SwiftUI
 
 struct TemporarySelectTemplateView: View {
     
+    @Environment (\.dismiss) var dismiss
     
     let numberOfPeople = [3,4,5,6,7,8]
     @State var selectedNumber = 3
     
     @State var templates: [Template] = TemplateData().groupOf3
-    @State var selectedTemplate: Template?
-    
-    
-    //    @State var images : [UIImage] = []
+    @Binding var selectedTemplate: Template
     
     private let adaptiveColumn = [
         GridItem(.adaptive(minimum: 150))
     ]
-    
-    //    static func loadImages(selectedNumber: Int) -> [UIImage] {
-    //        var images: [UIImage] = []
-    //        var index = 0
-    //        // Loop indefinitely until no more images are found
-    //        while let image = UIImage(named: "GroupOf\(selectedNumber)/Preview/\(index)p") {
-    //            images.append(image)
-    //            index += 1
-    //        }
-    //        return images
-    //    }
-    
-    
+        
     
     var body: some View {
-        NavigationStack{
+//        NavigationStack{
             VStack{
                 Picker("Select a paint color", selection: $selectedNumber) {
                     ForEach(numberOfPeople, id: \.self) {item in
@@ -83,20 +69,25 @@ struct TemporarySelectTemplateView: View {
                     
                 }
                 
-                
-                
-                NavigationLink(destination: CameraView(template: selectedTemplate)) {
-                    Text("Select")
+                Button {
+                    self.dismiss()
+                } label: {
+                    Text("close")
                 }
-                .navigationBarBackButtonHidden(true)
+
+                
+//                NavigationLink(destination: CameraView(template: selectedTemplate ?? TemplateData().groupOf3[0])) {
+//                    Text("Select")
+//                }
+//                .navigationBarBackButtonHidden(true)
                 
             }
-        }
+//        }
         .hideStatusBar()
     }
     
 }
 
-#Preview {
-    TemporarySelectTemplateView()
-}
+//#Preview {
+//    TemporarySelectTemplateView()
+//}

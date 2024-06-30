@@ -7,21 +7,32 @@
 
 import Foundation
 import WatchConnectivity
+import Combine
+import UIKit
 
-class WatchConnector: NSObject, WCSessionDelegate {
-    var session: WCSession
+class WatchConnector: NSObject, ObservableObject, WCSessionDelegate {
+    
+    static let wc = WatchConnector()
+
+    var session: WCSession?
     var conditionTimer: Timer?
-    var shouldAlert: Bool = false {
+    
+    @Published var shouldAlert: Bool = false {
         didSet {
             sendConditionToWatch()
         }
     }
     
-    init(session: WCSession = .default) {
-        self.session = session
+    override init() {
         super.init()
-        session.delegate = self
-        session.activate()
+
+        if WCSession.isSupported() {
+            session = WCSession.default
+            session!.delegate = self
+            session!.activate()
+        }
+        
+
     }
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
@@ -40,23 +51,27 @@ class WatchConnector: NSObject, WCSessionDelegate {
         // Handle receiving a message from the watch
     }
     
-    // Method to send image data to the watch
-    func sendImageToWatch(_ imageData: Data) {
-        if session.isReachable {
-            session.sendMessage(["imageData": imageData], replyHandler: nil, errorHandler: nil)
+    // Generic method to send messages to the watch
+    func send(message: [String: Any]) {
+//        if ((session?.isReachable) != nil) {
+            session!.sendMessage(message, replyHandler: nil) { error in
+                print("Error sending message: \(error.localizedDescription)")
+//            }
         }
     }
     
+    // Method to send image data to the watch
+    func sendImageToWatch(_ imageData: Data) {
+        send(message: ["imageData": imageData])
+    }
+    
     func sendConditionToWatch() {
-        let message = ["shouldAlert": shouldAlert]
-        session.sendMessage(message, replyHandler: nil) { error in
-            print("Error sending message to watch: \(error.localizedDescription)")
-        }
+        send(message: ["shouldAlert": shouldAlert])
     }
     
     func startConditionCheckTimer() {
         stopConditionCheckTimer()
-        conditionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+        conditionTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { [weak self] _ in
             self?.sendConditionToWatch()
         }
     }
@@ -66,4 +81,15 @@ class WatchConnector: NSObject, WCSessionDelegate {
         conditionTimer = nil
     }
     
+    func sendTemplate(_ template: Template){
+        
+        guard let img = UIImage(named: template.silhouetteImage) else { return }
+        let imgData = img.pngData()
+        send(message: ["silhouetteImage": imgData!])
+        
+        let orientation: String = template.orientation.rawValue
+        
+        send(message: ["orientation": orientation])
+       
+    }
 }

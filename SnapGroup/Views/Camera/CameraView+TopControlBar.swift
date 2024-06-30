@@ -41,9 +41,9 @@ extension CameraView {
             Spacer()
             
             Button(action: {
-                self.dismiss()
+                showSettings = true
             }, label: {
-                Image(systemName: "xmark")
+                Image(systemName: "person.3.fill")
                     .resizable()
                     .scaledToFit()
 //                    .font(.system(size: 24))
@@ -58,5 +58,5 @@ extension CameraView {
 }
 
 #Preview {
-    CameraView ()
+    CameraView(template: TemplateData().groupOf3[0])
 }

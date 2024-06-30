@@ -11,7 +11,7 @@ import SwiftUI
 struct SnapGroupApp: App {
     var body: some Scene {
         WindowGroup {
-            TemporarySelectTemplateView()
+            CameraView(template: TemplateData().groupOf3[0])
         }
     }
 }

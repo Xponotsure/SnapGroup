@@ -10,7 +10,11 @@ import SwiftUI
 
 struct Template : Hashable{
     var previewImage: String
-    var sillhouteImage: String
+    var silhouetteImage: String
+    var orientation: Orientation
     var pathLogic: [CGRect]
 }
 
+enum Orientation: String{
+    case potrait, landscape
+}

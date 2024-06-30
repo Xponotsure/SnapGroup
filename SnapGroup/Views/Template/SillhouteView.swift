@@ -11,7 +11,8 @@ struct TemplateData{
     var groupOf3: [Template] = [
         Template(
             previewImage: "GroupOf3/Preview/0p",
-            sillhouteImage: "GroupOf3/Sillhoute/0s",
+            silhouetteImage: "GroupOf3/Sillhoute/0s",
+            orientation: .potrait,
             pathLogic: [
                 CGRect(x: 60, y: 85, width: 100, height: 100),
                 CGRect(x: 200, y: 75, width: 100, height: 100),
@@ -44,31 +45,26 @@ struct TemplateData{
 
 struct SillhouteView: View {
     var template: Template
-    @ObservedObject var cameraVM: CameraViewModel
     
+    @ObservedObject var cameraVM: CameraViewModel
     
     
     var body: some View {
         ZStack{
             
-            Image(template.sillhouteImage)
+            Image(template.silhouetteImage)
                 .resizable()
                 .scaledToFit()
                 .overlay{
                     GeometryReader{ geo in
                         ForEach(template.pathLogic, id: \.self) { rect in
-//                            let isIntersecting = cameraVM.detectedFaces.contains { face in
-//                                let faceRect = cameraVM.convertBoundingBox(face.boundingBox, screenSize: geo.size)
-//                                return rect.intersects(faceRect)
-//                            }
                             Rectangle()
                                 .path(in: rect)
+                                .stroke(Color.clear , lineWidth: 2)
                             
-                            
-                            
-                                .stroke(Color.clear , lineWidth: 5)
+                                // untuk test, command lagi kalo udah
+//                                .stroke(Color.blue , lineWidth: 2)
 
-//                                .stroke(isIntersecting ? Color.green : Color.blue, lineWidth: 2)
                         }
                         
                     }

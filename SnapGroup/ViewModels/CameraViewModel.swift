@@ -47,15 +47,14 @@ class CameraViewModel: NSObject, ObservableObject {
     
     private var countdownWorkItem: DispatchWorkItem?
     
-    private var watchConnector: WatchConnector
-    
+    @StateObject var watchConnector = WatchConnector.wc
+
     private var lastSentTime: TimeInterval = 0
     private let frameRate: TimeInterval = 0.1// send one frame per second
     private let targetSize = CGSize(width: 200, height: 200)
     
     
     override init() {
-        self.watchConnector = WatchConnector()
         super.init()
         requestAccessAndSetup()
         setupFaceDetection()
@@ -357,10 +356,13 @@ class CameraViewModel: NSObject, ObservableObject {
         
         let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
         let context = CIContext()
+        
         if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
             let uiImage = UIImage(cgImage: cgImage)
             let resizedImage = resizeImage(uiImage, targetSize: targetSize)
-            if let imageData = resizedImage.jpegData(compressionQuality: 0.1) {
+            if let imageData = resizedImage.jpegData(compressionQuality: 0.01) {
+//                let message: [String: Any] = ["imageData": imageData ]
+//                watchConnector.send(message: message)
                 watchConnector.sendImageToWatch(imageData)
             }
         }

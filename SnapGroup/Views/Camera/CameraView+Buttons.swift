@@ -123,5 +123,5 @@ extension CameraView {
 
 
 #Preview {
-    CameraView()
+    CameraView(template:TemplateData().groupOf3[0])
 }
